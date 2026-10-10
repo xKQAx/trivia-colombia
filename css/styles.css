@@ -1,0 +1,65 @@
+/* Reset básico */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Tema claro (por defecto) */
+:root {
+  --color-fondo: #F5EDE0;
+  --color-tarjeta: #FFFAF2;
+  --color-borde: #DCCBB2;
+  --color-texto: #3A281D;
+  --color-texto-suave: #7A6350;
+  --color-primario: #1E5A45;
+  --color-primario-oscuro: #164434;
+  --color-primario-suave: #DDEBDD;
+  --color-acento: #C65D35;
+  --color-destacado: #E3A72F;
+  --color-acierto: #2F8A57;
+  --color-acierto-fondo: #DDF0E3;
+  --color-error: #B5402B;
+  --color-error-fondo: #F6DDD6;
+
+  --fuente-titulos: "Fraunces", serif;
+  --fuente-textos: "DM Sans", sans-serif;
+
+  --radio-sm: 14px;
+  --radio-md: 16px;
+  --radio-lg: 20px;
+  --radio-xl: 24px;
+
+  --espacio-1: 8px;
+  --espacio-2: 16px;
+  --espacio-3: 24px;
+  --espacio-4: 32px;
+  --espacio-5: 40px;
+  --espacio-6: 48px;
+
+  --altura-min-boton: 52px;
+}
+
+/* Tema oscuro */
+:root[data-tema="oscuro"] {
+  --color-fondo: #1B1612;
+  --color-tarjeta: #261F19;
+  --color-borde: #4A3D31;
+  --color-texto: #F3E9DA;
+  --color-texto-suave: #B8A590;
+  --color-primario: #3E9A76;
+  --color-primario-suave: #1F3A30;
+  --color-acento: #E0764C;
+  --color-acierto: #4FBF84;
+  --color-acierto-fondo: #1C3A2B;
+  --color-error: #E5705A;
+  --color-error-fondo: #3D211B;
+}
+
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente-textos);
+}
