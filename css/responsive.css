@@ -4,3 +4,184 @@
   - 768px  → tableta
   - 1024px → escritorio
 */
+
+/* Tableta: héroe en una columna, ilustración debajo */
+@media (max-width: 1023px) {
+  :root {
+    --padding-lateral: 32px;
+  }
+
+  .cabecera__barra {
+    min-height: 72px;
+    padding-block: 12px;
+  }
+
+  .logo__texto {
+    font-size: 1.2rem;
+  }
+
+  .heroe {
+    grid-template-columns: 1fr;
+    gap: var(--espacio-4);
+  }
+
+  .heroe__texto {
+    max-width: none;
+  }
+
+  .heroe__descripcion {
+    max-width: 42ch;
+  }
+
+  .heroe__ilustracion {
+    max-width: none;
+    justify-self: stretch;
+  }
+
+  .ilustracion {
+    aspect-ratio: 16 / 9;
+    min-height: 220px;
+  }
+
+  .tarjeta-ejemplo {
+    width: min(280px, 70%);
+  }
+}
+
+/* Móvil: layout M1 Inicio (375px de referencia) */
+@media (max-width: 767px) {
+  :root {
+    --padding-lateral: 20px;
+  }
+
+  .cabecera__barra {
+    min-height: 68px;
+    padding-block: 12px;
+  }
+
+  .logo__marca {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo__texto {
+    font-size: 1.05rem;
+  }
+
+  /* En pantallas muy angostas, priorizar marca corta si hace falta espacio */
+  .ajustes {
+    gap: 8px;
+  }
+
+  .pantalla-inicio {
+    padding-top: var(--espacio-3);
+    padding-bottom: var(--espacio-4);
+    align-items: flex-start;
+  }
+
+  .heroe {
+    gap: var(--espacio-3);
+  }
+
+  .heroe__texto {
+    gap: var(--espacio-2);
+  }
+
+  .heroe__titulo {
+    font-size: clamp(2.35rem, 10vw, 3.25rem);
+    /* En móvil el título ocupa más alto (como en Figma ~104px) */
+    max-width: 10ch;
+  }
+
+  .heroe__descripcion {
+    max-width: none;
+    font-size: 1.05rem;
+  }
+
+  /* Orden M1: chip → título → descripción → ilustración → nombre → botones */
+  .heroe__texto .chip {
+    order: 0;
+  }
+
+  .heroe__titulo {
+    order: 1;
+  }
+
+  .heroe__descripcion {
+    order: 2;
+  }
+
+  .heroe__ilustracion {
+    order: 3;
+    margin-block: var(--espacio-1);
+  }
+
+  .heroe__texto .campo {
+    order: 4;
+  }
+
+  .heroe__texto .boton--primario {
+    order: 5;
+  }
+
+  .acciones-secundarias {
+    order: 6;
+    gap: 12px;
+  }
+
+  /* El grid del héroe debe permitir reordenar ilustración entre texto */
+  .heroe {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .heroe__texto {
+    display: contents;
+  }
+
+  .ilustracion {
+    aspect-ratio: 335 / 170;
+    min-height: 170px;
+    border-radius: var(--radio-lg);
+  }
+
+  .tarjeta-ejemplo {
+    top: 10%;
+    left: 5%;
+    width: min(220px, 68%);
+    padding: 14px 16px;
+    gap: 8px;
+  }
+
+  .tarjeta-ejemplo__pregunta {
+    font-size: 0.95rem;
+  }
+
+  .boton--primario {
+    min-height: 58px;
+  }
+
+  .acciones-secundarias .boton {
+    min-height: 56px;
+    font-size: 0.95rem;
+    padding-inline: 12px;
+  }
+
+  .pie {
+    padding-block: 16px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 379px) {
+  .logo__texto {
+    max-width: 9.5ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .acciones-secundarias {
+    flex-direction: column;
+  }
+}
