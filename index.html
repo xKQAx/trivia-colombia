@@ -596,6 +596,7 @@
 
         <div class="puntaje-final">
           <p class="puntaje-final__etiqueta">Tu puntaje final</p>
+          <p class="chip chip--record" id="chip-nuevo-record" hidden>¡Nuevo récord personal!</p>
           <p class="puntaje-final__valor">1.250</p>
           <p class="puntaje-final__unidad">puntos</p>
         </div>
@@ -640,22 +641,16 @@
 
         <section class="falladas" aria-labelledby="titulo-falladas">
           <h3 id="titulo-falladas" class="falladas__titulo">Preguntas falladas</h3>
-          <ul class="falladas__lista">
-            <li class="falladas__item" data-ejemplo="fallada" hidden>
-              <p class="falladas__pregunta">Pregunta de ejemplo</p>
-              <div class="falladas__chips">
-                <span class="chip chip--error">Tu respuesta: —</span>
-                <span class="chip chip--ok">Correcta: —</span>
-              </div>
-            </li>
-          </ul>
+          <ul class="falladas__lista"></ul>
         </section>
 
         <div class="resultado-acciones">
           <button type="button" class="boton boton--primario boton--auto" data-ir="configuracion">Jugar de nuevo</button>
           <button type="button" class="boton boton--secundario" data-ir="ranking">Ver ranking</button>
+          <button type="button" class="boton boton--contorno" id="btn-compartir" aria-label="Compartir resultado">Compartir</button>
           <button type="button" class="boton boton--secundario" data-ir="inicio">Volver al inicio</button>
         </div>
+        <p class="aviso-compartir" id="aviso-compartir" role="status" aria-live="polite"></p>
       </div>
     </section>
 

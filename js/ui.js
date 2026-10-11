@@ -24,6 +24,16 @@ const NOMBRES_DIF = Object.fromEntries(DIFICULTADES.map((d) => [d.clave, d.nombr
 
 const LETRAS = ['A', 'B', 'C', 'D'];
 
+/** ¿prefers-reduced-motion: reduce? */
+function reduceMotion() {
+  try {
+    return typeof matchMedia === 'function'
+      && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  } catch {
+    return false;
+  }
+}
+
 /** SVG de check (createElementNS: evita innerHTML con markup). */
 function crearSvgCheck() {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -223,6 +233,13 @@ export function mostrarPregunta(pregunta, numero, total, dificultadPartida) {
 
   contenedor.replaceChildren();
 
+  const bloque = document.querySelector('#pantalla-juego .pregunta-bloque');
+  bloque?.classList.remove('pregunta-bloque--fade');
+  // Forzar reflow para reiniciar fade al cambiar de pregunta
+  void bloque?.offsetWidth;
+  bloque?.classList.add('pregunta-bloque--fade');
+  contenedor.classList.add('opciones--entrada');
+
   pregunta.opciones.forEach((texto, i) => {
     const boton = /** @type {HTMLButtonElement} */ (
       moldeOpcion ? moldeOpcion.cloneNode(true) : document.createElement('button')
@@ -232,6 +249,7 @@ export function mostrarPregunta(pregunta, numero, total, dificultadPartida) {
     boton.className = 'opcion';
     boton.type = 'button';
     boton.dataset.opcion = String(i);
+    boton.style.setProperty('--orden', String(i));
     boton.removeAttribute('aria-disabled');
     boton.removeAttribute('aria-hidden');
     boton.disabled = false;
@@ -247,7 +265,14 @@ export function mostrarPregunta(pregunta, numero, total, dificultadPartida) {
       boton.append(letra, cuerpo);
     }
     boton.querySelector('.opcion__marca')?.remove();
-    boton.classList.remove('opcion--oculta', 'opcion--correcta', 'opcion--incorrecta', 'opcion--neutral');
+    boton.classList.remove(
+      'opcion--oculta',
+      'opcion--correcta',
+      'opcion--incorrecta',
+      'opcion--neutral',
+      'opcion--pulso',
+      'opcion--shake'
+    );
     letra.textContent = LETRAS[i];
     cuerpo.textContent = texto;
     contenedor.appendChild(boton);
@@ -275,8 +300,9 @@ export function actualizarTemporizador(segundos, tiempoMax = 20) {
     const max = Math.max(1, tiempoMax);
     const progreso = Math.max(0, Math.min(1, segundos / max));
     reloj.style.setProperty('--progreso', String(progreso));
-    reloj.classList.toggle('temporizador--urgente', segundos <= 5);
-    reloj.classList.toggle('temporizador--agotado', segundos <= 0);
+  reloj.classList.toggle('temporizador--urgente', segundos <= 5 && segundos > 0);
+  reloj.classList.toggle('temporizador--pulso', segundos <= 5 && segundos > 0);
+  reloj.classList.toggle('temporizador--agotado', segundos <= 0);
   }
 
   // Espejo en pantalla de retro (mismo valor visible al revelar)
@@ -331,14 +357,14 @@ export function marcarRespuesta(indiceElegido, indiceCorrecta, raiz) {
     el.querySelector('.opcion__marca')?.remove();
 
     if (i === indiceCorrecta) {
-      el.classList.add('opcion--correcta');
+      el.classList.add('opcion--correcta', 'opcion--pulso');
       const marca = document.createElement('span');
       marca.className = 'opcion__marca';
       marca.setAttribute('aria-hidden', 'true');
       marca.appendChild(crearSvgMarca(true));
       el.appendChild(marca);
     } else if (indiceElegido != null && i === indiceElegido) {
-      el.classList.add('opcion--incorrecta');
+      el.classList.add('opcion--incorrecta', 'opcion--shake');
       const marca = document.createElement('span');
       marca.className = 'opcion__marca';
       marca.setAttribute('aria-hidden', 'true');
@@ -348,6 +374,26 @@ export function marcarRespuesta(indiceElegido, indiceCorrecta, raiz) {
       el.classList.add('opcion--neutral');
     }
   });
+}
+
+/**
+ * Flotante "+N" sobre el marcador (decorativo).
+ * @param {number} puntos
+ * @param {ParentNode} [raiz]
+ */
+export function mostrarPuntosFlotantes(puntos, raiz) {
+  if (!puntos || puntos <= 0) return;
+  const root = /** @type {HTMLElement|null} */ (
+    raiz ?? document.querySelector('#pantalla-retroalimentacion .partida__stats')
+  );
+  if (!root) return;
+  root.querySelectorAll('.puntos-flotantes').forEach((el) => el.remove());
+  const span = document.createElement('span');
+  span.className = 'puntos-flotantes';
+  span.setAttribute('aria-hidden', 'true');
+  span.textContent = `+${formatearNumero(puntos)}`;
+  root.appendChild(span);
+  window.setTimeout(() => span.remove(), 1100);
 }
 
 /**
@@ -471,6 +517,10 @@ export function mostrarRetroalimentacion(
     marcarRespuesta(resultado.indiceElegido, resultado.indiceCorrecta, juegoOps);
   }
 
+  if (resultado.correcta && resultado.puntosGanados > 0) {
+    mostrarPuntosFlotantes(resultado.puntosGanados);
+  }
+
   mostrarPantalla('retroalimentacion');
 }
 
@@ -544,10 +594,33 @@ function mensajeResultado(nombre, aciertos, total) {
 }
 
 /**
+ * Count-up del puntaje final (1s rAF; reduced-motion → valor final).
+ * @param {HTMLElement} el
+ * @param {number} objetivo
+ */
+function animarCountUp(el, objetivo) {
+  if (reduceMotion() || objetivo <= 0) {
+    el.textContent = formatearNumero(objetivo);
+    return;
+  }
+  const duracion = 1000;
+  const inicio = performance.now();
+  function paso(ahora) {
+    const t = Math.min(1, (ahora - inicio) / duracion);
+    const valor = Math.round(objetivo * t);
+    el.textContent = formatearNumero(valor);
+    if (t < 1) requestAnimationFrame(paso);
+    else el.textContent = formatearNumero(objetivo);
+  }
+  requestAnimationFrame(paso);
+}
+
+/**
  * @param {object} resumen
  * @param {number|null} posicion
+ * @param {{ nuevoRecord?: boolean }} [extras]
  */
-export function mostrarResultado(resumen, posicion) {
+export function mostrarResultado(resumen, posicion, extras = {}) {
   const mensaje = document.getElementById('resultado-mensaje');
   if (mensaje) {
     mensaje.textContent = mensajeResultado(
@@ -560,8 +633,13 @@ export function mostrarResultado(resumen, posicion) {
   const pantalla = document.getElementById('pantalla-resultado');
   if (!pantalla) return;
 
-  const valor = pantalla.querySelector('.puntaje-final__valor');
-  if (valor) valor.textContent = formatearNumero(resumen.puntaje);
+  const chipRecord = document.getElementById('chip-nuevo-record');
+  if (chipRecord) {
+    chipRecord.hidden = !extras.nuevoRecord;
+  }
+
+  const valor = /** @type {HTMLElement|null} */ (pantalla.querySelector('.puntaje-final__valor'));
+  if (valor) animarCountUp(valor, resumen.puntaje);
 
   const stats = pantalla.querySelectorAll('.dato-stat__valor');
   if (stats[0]) stats[0].textContent = `${resumen.aciertos} / ${resumen.totalPreguntas}`;
@@ -573,12 +651,6 @@ export function mostrarResultado(resumen, posicion) {
   const lista = pantalla.querySelector('.falladas__lista');
   const seccion = pantalla.querySelector('.falladas');
   if (lista && seccion) {
-    let plantilla = lista.querySelector('[data-ejemplo="fallada"]');
-    if (!plantilla) plantilla = lista.querySelector('.falladas__item');
-    const moldeFallada = plantilla
-      ? /** @type {HTMLElement} */ (plantilla.cloneNode(true))
-      : null;
-
     lista.replaceChildren();
 
     if (resumen.falladas.length === 0) {
@@ -586,43 +658,64 @@ export function mostrarResultado(resumen, posicion) {
     } else {
       seccion.hidden = false;
       resumen.falladas.forEach((f) => {
-        const item = /** @type {HTMLElement} */ (
-          moldeFallada
-            ? moldeFallada.cloneNode(true)
-            : document.createElement('li')
-        );
-        item.removeAttribute('data-ejemplo');
+        const item = document.createElement('li');
         item.className = 'falladas__item';
-        item.hidden = false;
 
-        let preg = item.querySelector('.falladas__pregunta');
-        if (!preg) {
-          item.replaceChildren();
-          preg = document.createElement('p');
-          preg.className = 'falladas__pregunta';
-          const chips = document.createElement('div');
-          chips.className = 'falladas__chips';
-          const err = document.createElement('span');
-          err.className = 'chip chip--error';
-          const ok = document.createElement('span');
-          ok.className = 'chip chip--ok';
-          chips.append(err, ok);
-          item.append(preg, chips);
-        }
+        const preg = document.createElement('p');
+        preg.className = 'falladas__pregunta';
         preg.textContent = f.enunciado;
 
-        const chips = item.querySelectorAll('.falladas__chips .chip');
-        if (chips[0]) chips[0].textContent = `Tu respuesta: ${f.respuestaUsuario}`;
-        if (chips[1]) chips[1].textContent = `Correcta: ${f.respuestaCorrecta}`;
+        const chips = document.createElement('div');
+        chips.className = 'falladas__chips';
+        const err = document.createElement('span');
+        err.className = 'chip chip--error';
+        err.textContent = `Tu respuesta: ${f.respuestaUsuario}`;
+        const ok = document.createElement('span');
+        ok.className = 'chip chip--ok';
+        ok.textContent = `Correcta: ${f.respuestaCorrecta}`;
+        chips.append(err, ok);
 
+        // Repaso: explicación bajo details/summary
+        const details = document.createElement('details');
+        details.className = 'falladas__details';
+        const summary = document.createElement('summary');
+        summary.textContent = 'Ver explicación';
+        const expl = document.createElement('p');
+        expl.className = 'falladas__explicacion';
+        expl.textContent = f.explicacion || '';
+        details.append(summary, expl);
+
+        item.append(preg, chips, details);
         lista.appendChild(item);
       });
     }
-
-    lista.querySelectorAll('[data-ejemplo]').forEach((el) => el.remove());
   }
 
+  const avisoShare = document.getElementById('aviso-compartir');
+  if (avisoShare) avisoShare.textContent = '';
+
   mostrarPantalla('resultado');
+}
+
+/**
+ * Texto listo para compartir el resultado.
+ * @param {object} resumen
+ */
+export function textoCompartir(resumen) {
+  const puntos = formatearNumero(resumen.puntaje);
+  const cat = NOMBRES_CAT[resumen.categoria] ?? resumen.categoria;
+  const dif = NOMBRES_DIF[resumen.dificultad] ?? resumen.dificultad;
+  const url = `${location.origin}${location.pathname}`;
+  return `¡Saqué ${puntos} puntos en Trivia Colombia (${cat} · ${dif})! ${url}`;
+}
+
+/**
+ * Feedback "Copiado" en aria-live.
+ * @param {string} mensaje
+ */
+export function anunciarCompartir(mensaje) {
+  const aviso = document.getElementById('aviso-compartir');
+  if (aviso) aviso.textContent = mensaje;
 }
 
 /**

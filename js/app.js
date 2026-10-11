@@ -22,10 +22,15 @@ import {
   actualizarEstadisticas,
   obtenerResumenEstadisticas,
   obtenerMejorPuntaje,
+  esNuevoRecordPersonal,
   cargarPreferencias,
   guardarPreferencias
 } from './almacenamiento.js';
 import * as ui from './ui.js';
+import { lanzarConfeti } from './confeti.js';
+
+/** Último resumen de partida (para compartir). */
+let ultimoResumen = null;
 
 /** Selección de filtros en pantalla de configuración. */
 const config = {
@@ -237,6 +242,21 @@ function mostrarPreguntaActual() {
 /**
  * @param {object|null} resultado
  */
+/**
+ * Vibración corta si hay API y efectos (sonido) activos.
+ * @param {number} ms
+ */
+function vibrar(ms) {
+  if (!prefs.sonido) return;
+  try {
+    if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
+      navigator.vibrate(ms);
+    }
+  } catch {
+    /* API no disponible o bloqueada */
+  }
+}
+
 function finalizarRespuesta(resultado) {
   if (!resultado) return;
 
@@ -245,6 +265,7 @@ function finalizarRespuesta(resultado) {
   ui.actualizarComodines(estado.comodines, true);
 
   reproducirSonido(resultado.correcta ? 'acierto' : 'error');
+  vibrar(resultado.correcta ? 40 : 120);
 
   const pregunta = obtenerPreguntaActual();
   ui.mostrarRetroalimentacion(
@@ -293,6 +314,14 @@ function comenzarPartida() {
 
 function terminarPartida() {
   const resumen = obtenerResumen();
+  // Comparar récord ANTES de guardar / actualizar stats
+  const mejorPrevio = obtenerMejorPuntaje(
+    resumen.nombre,
+    resumen.categoria,
+    resumen.dificultad
+  );
+  const nuevoRecord = esNuevoRecordPersonal(resumen.puntaje, mejorPrevio);
+
   const entrada = {
     nombre: resumen.nombre,
     puntaje: resumen.puntaje,
@@ -318,9 +347,42 @@ function terminarPartida() {
 
   partidaActiva = false;
   hayResultado = true;
-  ui.mostrarResultado(resumen, posicion);
+  ultimoResumen = resumen;
+  ui.mostrarResultado(resumen, posicion, { nuevoRecord });
   pantallaActual = 'resultado';
   sincronizarHistorial('resultado');
+
+  // Confeti: ≥7 aciertos o top 3 del ranking
+  if (resumen.aciertos >= 7 || (posicion != null && posicion <= 3)) {
+    lanzarConfeti();
+  }
+}
+
+async function onCompartir() {
+  if (!ultimoResumen) return;
+  const texto = ui.textoCompartir(ultimoResumen);
+  try {
+    if (typeof navigator.share === 'function') {
+      await navigator.share({ text: texto, title: 'Trivia Colombia' });
+      return;
+    }
+  } catch (err) {
+    // Cancelar share no es error: AbortError / rechazo del usuario
+    if (err && /** @type {{ name?: string }} */ (err).name === 'AbortError') return;
+  }
+
+  try {
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+      await navigator.clipboard.writeText(texto);
+      ui.anunciarCompartir('Copiado');
+      return;
+    }
+  } catch {
+    /* clipboard bloqueado */
+  }
+
+  // Fallback mínimo sin romper flujo
+  ui.anunciarCompartir('No se pudo compartir');
 }
 
 async function onSiguiente() {
@@ -542,6 +604,10 @@ function inicializar() {
     if (!confirmar) return;
     abandonarPartida();
     await irA('configuracion', { forzar: true });
+  });
+
+  document.getElementById('btn-compartir')?.addEventListener('click', () => {
+    onCompartir();
   });
 
   document.getElementById('btn-borrar-ranking')?.addEventListener('click', async () => {

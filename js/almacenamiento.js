@@ -332,6 +332,16 @@ export function obtenerMejorPuntaje(nombre, categoria, dificultad) {
 }
 
 /**
+ * ¿Es récord personal? Primera vez en esa combo → false (no mostrar chip).
+ * @param {number} puntajeActual
+ * @param {number|null|undefined} mejorPrevio
+ */
+export function esNuevoRecordPersonal(puntajeActual, mejorPrevio) {
+  if (mejorPrevio == null) return false;
+  return Number(puntajeActual) > Number(mejorPrevio);
+}
+
+/**
  * Tema por defecto según prefers-color-scheme (solo primera vez).
  * @returns {'claro'|'oscuro'}
  */

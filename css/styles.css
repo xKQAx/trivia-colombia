@@ -295,6 +295,18 @@ main {
   background-color: var(--color-primario-suave);
 }
 
+.boton--contorno {
+  flex: 0 1 auto;
+  min-width: 160px;
+  background-color: transparent;
+  color: var(--color-primario);
+  border: 1.5px solid var(--color-primario);
+}
+
+.boton--contorno:hover {
+  background-color: var(--color-primario-suave);
+}
+
 /* Primario con ancho intrínseco (CTA centrado, no full-bleed) */
 .boton--auto {
   width: auto;
@@ -1040,6 +1052,7 @@ main {
 }
 
 .partida__stats {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -1085,6 +1098,22 @@ main {
       var(--color-error) calc(var(--progreso) * 360deg),
       var(--color-borde) 0
     ) border-box;
+}
+
+.temporizador--pulso {
+  animation: timer-pulso 0.9s ease-in-out infinite;
+}
+
+.puntos-flotantes {
+  position: absolute;
+  right: 0;
+  top: -8px;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-acierto);
+  pointer-events: none;
+  animation: flotar-puntos 1s ease forwards;
 }
 
 .temporizador--agotado {
@@ -1139,6 +1168,23 @@ main {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+}
+
+.opciones--entrada .opcion {
+  animation: opcion-entrada 0.35s ease both;
+  animation-delay: calc(var(--orden, 0) * 40ms);
+}
+
+.pregunta-bloque--fade {
+  animation: fade-pregunta 0.35s ease both;
+}
+
+.opcion--pulso {
+  animation: pulso-correcta 0.55s ease;
+}
+
+.opcion--shake {
+  animation: shake-incorrecta 300ms ease;
 }
 
 .opcion {
@@ -1372,6 +1418,12 @@ button.opcion:active {
   font-weight: 600;
 }
 
+.chip--record {
+  background-color: var(--color-destacado);
+  color: #3A281D;
+  font-weight: 700;
+}
+
 .puntaje-final__valor {
   font-family: var(--fuente-titulos);
   font-weight: 700;
@@ -1485,6 +1537,25 @@ button.opcion:active {
   color: var(--color-acierto);
 }
 
+.falladas__details {
+  margin-top: 4px;
+}
+
+.falladas__details summary {
+  cursor: pointer;
+  color: var(--color-primario);
+  font-weight: 600;
+  font-size: 0.95rem;
+  width: fit-content;
+}
+
+.falladas__explicacion {
+  margin-top: 8px;
+  color: var(--color-texto-suave);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
 .resultado-acciones {
   display: flex;
   flex-wrap: wrap;
@@ -1492,9 +1563,27 @@ button.opcion:active {
   justify-content: center;
 }
 
-.resultado-acciones .boton--secundario {
+.resultado-acciones .boton--secundario,
+.resultado-acciones .boton--contorno {
   flex: 0 1 auto;
   min-width: 160px;
+}
+
+.aviso-compartir {
+  min-height: 1.25em;
+  text-align: center;
+  color: var(--color-primario);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.confeti-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 /* ——— Pantalla Ranking ——— */
@@ -1653,6 +1742,56 @@ button.opcion:active {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+}
+
+@keyframes opcion-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-pregunta {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulso-correcta {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake-incorrecta {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+@keyframes flotar-puntos {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-28px);
+  }
+}
+
+@keyframes timer-pulso {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
 }
 
 @media (prefers-reduced-motion: reduce) {
