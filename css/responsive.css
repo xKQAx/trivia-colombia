@@ -55,6 +55,10 @@
   .tarjeta-info {
     min-height: 0;
   }
+
+  .rejilla-categorias {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 /* Móvil: layout M1 Inicio (375px de referencia) */
@@ -236,6 +240,71 @@
     width: 100%;
     min-width: 0;
     min-height: 58px;
+  }
+
+  /* Configuración M2 */
+  .pantalla-configuracion {
+    padding-top: var(--espacio-3);
+  }
+
+  .config-cabecera {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .chip--jugador {
+    margin-bottom: 0;
+  }
+
+  .rejilla-categorias {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .tarjeta-opcion {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 119px;
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .tarjeta-opcion__icono {
+    width: 52px;
+    height: 52px;
+  }
+
+  .tarjeta-opcion__nombre {
+    font-size: 0.95rem;
+  }
+
+  .tarjeta-opcion__desc {
+    font-size: 0.8rem;
+  }
+
+  .rejilla-niveles {
+    gap: 10px;
+  }
+
+  .tarjeta-nivel {
+    min-height: 69px;
+    padding: 12px 10px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .tarjeta-nivel__nombre {
+    font-size: 1rem;
+  }
+
+  .tarjeta-nivel__desc {
+    font-size: 0.8rem;
+  }
+
+  .aviso-mejor {
+    align-items: flex-start;
+    font-size: 0.9rem;
   }
 
   .pie {

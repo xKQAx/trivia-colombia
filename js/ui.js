@@ -14,6 +14,28 @@ const PANTALLAS = {
   ranking: "pantalla-ranking",
 };
 
+/** Estado visual de configuración (stub; sin persistencia aún). */
+const configUI = {
+  categoria: "historia",
+  dificultad: "medio",
+  nombre: "",
+};
+
+const NOMBRES_CATEGORIA = {
+  todas: "Todas",
+  geografia: "Geografía",
+  historia: "Historia",
+  cultura: "Cultura y Tradiciones",
+  deportes: "Deportes",
+  naturaleza: "Ciencia y Naturaleza",
+};
+
+const NOMBRES_DIFICULTAD = {
+  facil: "Fácil",
+  medio: "Medio",
+  dificil: "Difícil",
+};
+
 /**
  * Muestra una pantalla y oculta el resto (navegación mínima para demo de UI).
  * @param {keyof typeof PANTALLAS} clave
@@ -58,6 +80,58 @@ function alternarSonido() {
   boton.setAttribute("aria-pressed", String(!activo));
 }
 
+/** Actualiza chip de jugador y texto demo del mejor puntaje. */
+function refrescarCabeceraConfig() {
+  const chip = document.getElementById("chip-jugador");
+  if (chip) {
+    chip.textContent = `Jugador: ${configUI.nombre || "—"}`;
+  }
+
+  const aviso = document.getElementById("aviso-mejor-puntaje");
+  const texto = aviso?.querySelector("span");
+  if (texto) {
+    const cat = NOMBRES_CATEGORIA[configUI.categoria] ?? "Historia";
+    const dif = NOMBRES_DIFICULTAD[configUI.dificultad] ?? "Medio";
+    // Valor de ejemplo estático (como en Figma); no lee localStorage aún
+    texto.textContent = `Tu mejor puntaje en ${cat} · ${dif}: 1.250 puntos`;
+  }
+}
+
+/**
+ * Selección exclusiva visual (radio-like) en un grupo de botones.
+ * @param {string} selectorGrupo
+ * @param {(valor: string) => void} alCambiar
+ * @param {string} attrDatos
+ */
+function enlazarGrupoOpcion(selectorGrupo, alCambiar, attrDatos) {
+  document.querySelectorAll(selectorGrupo).forEach((boton) => {
+    boton.addEventListener("click", () => {
+      document.querySelectorAll(selectorGrupo).forEach((otro) => {
+        otro.classList.remove("is-activo");
+        otro.setAttribute("aria-pressed", "false");
+        otro.querySelector(".tarjeta-opcion__check")?.remove();
+      });
+
+      boton.classList.add("is-activo");
+      boton.setAttribute("aria-pressed", "true");
+
+      // Check solo en categorías (patrón del diseño Figma)
+      if (boton.matches(".tarjeta-opcion") && !boton.querySelector(".tarjeta-opcion__check")) {
+        const check = document.createElement("span");
+        check.className = "tarjeta-opcion__check";
+        check.setAttribute("aria-hidden", "true");
+        check.innerHTML =
+          '<svg class="icono" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12.5L10 17.5L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        boton.appendChild(check);
+      }
+
+      const valor = boton.getAttribute(attrDatos);
+      if (valor) alCambiar(valor);
+      refrescarCabeceraConfig();
+    });
+  });
+}
+
 /**
  * Enlaza botones con data-ir y controles de cabecera.
  * No implementa lógica de partida: solo UI.
@@ -84,9 +158,27 @@ function inicializar() {
       return;
     }
     entrada?.removeAttribute("aria-invalid");
+    configUI.nombre = nombre;
+    refrescarCabeceraConfig();
     console.log("Jugar (stub) — jugador:", nombre);
     mostrarPantalla("configuracion");
   });
+
+  // Configuración: categorías y niveles (solo estado visual)
+  enlazarGrupoOpcion(".rejilla-categorias .tarjeta-opcion", (valor) => {
+    configUI.categoria = valor;
+  }, "data-categoria");
+
+  enlazarGrupoOpcion(".rejilla-niveles .tarjeta-nivel", (valor) => {
+    configUI.dificultad = valor;
+  }, "data-dificultad");
+
+  document.getElementById("btn-comenzar")?.addEventListener("click", () => {
+    console.log("Comenzar (stub)", { ...configUI });
+    mostrarPantalla("juego");
+  });
+
+  refrescarCabeceraConfig();
 }
 
 export const ui = {
