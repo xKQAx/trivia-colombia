@@ -485,6 +485,31 @@ export function reiniciarRetroalimentacion() {
  * @param {{ cincuenta: boolean, tiempo: boolean }} comodines
  * @param {boolean} respondida
  */
+/** Icono de reloj para el botón de tiempo extra (recreable si se perdió del DOM). */
+function crearSvgReloj() {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('class', 'icono');
+  svg.setAttribute('width', '22');
+  svg.setAttribute('height', '22');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('fill', 'none');
+  svg.setAttribute('aria-hidden', 'true');
+  const circulo = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  circulo.setAttribute('cx', '12');
+  circulo.setAttribute('cy', '12');
+  circulo.setAttribute('r', '8.5');
+  circulo.setAttribute('stroke', 'currentColor');
+  circulo.setAttribute('stroke-width', '1.8');
+  const manecilla = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  manecilla.setAttribute('d', 'M12 7.5V12.5L15 14.5');
+  manecilla.setAttribute('stroke', 'currentColor');
+  manecilla.setAttribute('stroke-width', '1.8');
+  manecilla.setAttribute('stroke-linecap', 'round');
+  manecilla.setAttribute('stroke-linejoin', 'round');
+  svg.append(circulo, manecilla);
+  return svg;
+}
+
 export function actualizarComodines(comodines, respondida) {
   const btn50 = document.getElementById('btn-5050');
   const btnTiempo = document.getElementById('btn-tiempo-extra');
@@ -496,11 +521,12 @@ export function actualizarComodines(comodines, respondida) {
 
   if (btnTiempo) {
     btnTiempo.disabled = respondida || !comodines.tiempo;
-    const svg = btnTiempo.querySelector('svg');
-    const etiqueta = comodines.tiempo ? '+10 s · −30 pts' : 'Tiempo usado';
-    btnTiempo.textContent = '';
-    if (svg && comodines.tiempo) btnTiempo.appendChild(svg);
-    btnTiempo.append(document.createTextNode(comodines.tiempo ? ` ${etiqueta}` : etiqueta));
+    btnTiempo.replaceChildren();
+    if (comodines.tiempo) {
+      btnTiempo.append(crearSvgReloj(), document.createTextNode(' +10 s · −30 pts'));
+    } else {
+      btnTiempo.append(document.createTextNode('Tiempo usado'));
+    }
   }
 }
 
