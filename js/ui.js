@@ -203,6 +203,24 @@ function inicializar() {
     }
   });
 
+  // Personaliza saludo de resultado al navegar (demo)
+  document.querySelectorAll('[data-ir="resultado"]').forEach((el) => {
+    el.addEventListener("click", () => {
+      const mensaje = document.getElementById("resultado-mensaje");
+      const nombre = configUI.nombre || "jugador";
+      if (mensaje) {
+        mensaje.textContent = `¡Muy bien, ${nombre}! Vas por muy buen camino.`;
+      }
+    });
+  });
+
+  document.getElementById("btn-borrar-ranking")?.addEventListener("click", () => {
+    // Stub visual: no borra localStorage aún
+    console.log("Borrar ranking (stub)");
+    const btn = document.getElementById("btn-borrar-ranking");
+    if (btn) btn.textContent = "Ranking vacío (demo)";
+  });
+
   refrescarCabeceraConfig();
 }
 

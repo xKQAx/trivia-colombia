@@ -59,6 +59,14 @@
   .rejilla-categorias {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .ranking-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .resultado-datos {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Móvil: layout M1 Inicio (375px de referencia) */
@@ -386,6 +394,81 @@
 
   .comodines-acciones--inactivos {
     display: none;
+  }
+
+  /* Resultado M6 */
+  .puntaje-final {
+    min-height: 175px;
+  }
+
+  .puntaje-final__valor {
+    font-size: 3.25rem;
+  }
+
+  .resultado-datos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .dato-stat {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 129px;
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .dato-stat__icono {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dato-stat__valor {
+    font-size: 1.1rem;
+  }
+
+  .dato-stat__etiqueta {
+    font-size: 0.75rem;
+  }
+
+  .falladas {
+    padding: 18px;
+  }
+
+  .resultado-acciones {
+    flex-direction: column;
+  }
+
+  .resultado-acciones .boton,
+  .resultado-acciones .boton--secundario {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Ranking M7 */
+  .tabla-ranking {
+    padding: 8px;
+    overflow-x: auto;
+  }
+
+  .tabla-ranking__fila {
+    grid-template-columns: 40px minmax(0, 1.4fr) 0.7fr;
+    min-height: 58px;
+    font-size: 0.9rem;
+  }
+
+  .tabla-ranking__fila > :nth-child(4),
+  .tabla-ranking__fila > :nth-child(5) {
+    display: none;
+  }
+
+  .tabla-ranking__fila--cabeza > :nth-child(4),
+  .tabla-ranking__fila--cabeza > :nth-child(5) {
+    display: none;
+  }
+
+  .stats-laterales__lista {
+    grid-template-columns: 1fr 1fr;
   }
 
   .pie {

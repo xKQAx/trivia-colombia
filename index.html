@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -555,11 +555,112 @@
       </div>
     </section>
 
-    <section id="pantalla-resultado" class="pantalla" hidden aria-labelledby="titulo-resultado">
-      <h2 id="titulo-resultado">Resultado</h2>
+    <!-- Pantalla: Resultado (Figma Escritorio 3:499 / Móvil 6:213) — demo con datos de ejemplo -->
+    <section id="pantalla-resultado" class="pantalla pantalla-resultado" hidden aria-labelledby="titulo-resultado">
+      <div class="resultado">
+        <header class="pagina-cabecera pagina-cabecera--centrada">
+          <h2 id="titulo-resultado" class="pagina-cabecera__titulo">Partida terminada</h2>
+          <p class="pagina-cabecera__subtitulo" id="resultado-mensaje">¡Muy bien, Ana! Vas por muy buen camino.</p>
+        </header>
+
+        <div class="puntaje-final">
+          <p class="puntaje-final__etiqueta">Tu puntaje final</p>
+          <p class="puntaje-final__valor">1.250</p>
+          <p class="puntaje-final__unidad">puntos</p>
+        </div>
+
+        <div class="resultado-datos">
+          <div class="dato-stat">
+            <span class="dato-stat__icono" aria-hidden="true">
+              <svg class="icono" width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12.5L10 17.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <div>
+              <p class="dato-stat__etiqueta">Aciertos</p>
+              <p class="dato-stat__valor">7 / 10</p>
+            </div>
+          </div>
+          <div class="dato-stat">
+            <span class="dato-stat__icono" aria-hidden="true">
+              <svg class="icono" width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M12 7.5V12.5L15 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <div>
+              <p class="dato-stat__etiqueta">Tiempo total</p>
+              <p class="dato-stat__valor">2:35</p>
+            </div>
+          </div>
+          <div class="dato-stat">
+            <span class="dato-stat__icono" aria-hidden="true">
+              <svg class="icono" width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 21H16M12 17V21M7 4H17V8C17 10.761 14.761 13 12 13C9.239 13 7 10.761 7 8V4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M7 6H5C4.448 6 4 6.448 4 7V8C4 9.657 5.343 11 7 11M17 6H19C19.552 6 20 6.448 20 7V8C20 9.657 18.657 11 17 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <div>
+              <p class="dato-stat__etiqueta">Posición en el ranking</p>
+              <p class="dato-stat__valor">#3</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="falladas" aria-labelledby="titulo-falladas">
+          <h3 id="titulo-falladas" class="falladas__titulo">Preguntas falladas</h3>
+          <ul class="falladas__lista">
+            <li class="falladas__item">
+              <p class="falladas__pregunta">¿Qué ciclista colombiano ganó el Tour de Francia en 2019?</p>
+              <div class="falladas__chips">
+                <span class="chip chip--error">
+                  <svg class="icono" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 7L17 17M17 7L7 17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+                  Tu respuesta: Nairo Quintana
+                </span>
+                <span class="chip chip--ok">
+                  <svg class="icono" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 12.5L10 17.5L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Correcta: Egan Bernal
+                </span>
+              </div>
+            </li>
+            <li class="falladas__item">
+              <p class="falladas__pregunta">¿En qué año se firmó el Acta de Independencia de Colombia?</p>
+              <div class="falladas__chips">
+                <span class="chip chip--error">
+                  <svg class="icono" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 7L17 17M17 7L7 17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+                  Tu respuesta: 1819
+                </span>
+                <span class="chip chip--ok">
+                  <svg class="icono" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 12.5L10 17.5L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Correcta: 1810
+                </span>
+              </div>
+            </li>
+            <li class="falladas__item">
+              <p class="falladas__pregunta">¿Cuál es el principal río de Colombia?</p>
+              <div class="falladas__chips">
+                <span class="chip chip--error">
+                  <svg class="icono" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 7L17 17M17 7L7 17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+                  Tu respuesta: Río Cauca
+                </span>
+                <span class="chip chip--ok">
+                  <svg class="icono" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 12.5L10 17.5L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Correcta: Río Magdalena
+                </span>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <div class="resultado-acciones">
+          <button type="button" class="boton boton--primario boton--auto" data-ir="configuracion">Jugar de nuevo</button>
+          <button type="button" class="boton boton--secundario" data-ir="ranking">Ver ranking</button>
+          <button type="button" class="boton boton--secundario" data-ir="inicio">Volver al inicio</button>
+        </div>
+      </div>
     </section>
 
-    <section id="pantalla-ranking" class="pantalla" hidden aria-labelledby="titulo-ranking">
+        <section id="pantalla-ranking" class="pantalla" hidden aria-labelledby="titulo-ranking">
       <h2 id="titulo-ranking">Ranking</h2>
       <p class="pantalla__aviso">Pantalla pendiente de implementar.</p>
       <button type="button" class="boton boton--secundario" data-ir="inicio">Volver</button>
