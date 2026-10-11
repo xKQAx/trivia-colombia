@@ -836,5 +836,278 @@ export const PREGUNTAS = [
     opciones: ['Talla en piedra', 'Filigrana en plata', 'Cerámica negra', 'Orfebrería en platino'],
     correcta: 1,
     explicacion: 'Mompox es famosa por su filigrana en plata de tradición colonial.'
-  }
+  },
+  // --- Deportes: fácil ---
+  {
+    id: 91,
+    categoria: 'deportes',
+    dificultad: 'facil',
+    enunciado: '¿Cuál es el deporte más popular en Colombia?',
+    opciones: ['Ciclismo', 'Béisbol', 'Baloncesto', 'Fútbol'],
+    correcta: 3,
+    explicacion: 'El fútbol es el deporte con mayor afición y seguimiento en Colombia.'
+  },
+  {
+    id: 92,
+    categoria: 'deportes',
+    dificultad: 'facil',
+    enunciado: '¿Cómo se conoce popularmente al futbolista Carlos Valderrama?',
+    opciones: ['El Crack', 'El Pibe', 'El Tunelero', 'El Crack Paisa'],
+    correcta: 1,
+    explicacion: 'Carlos Valderrama es conocido como El Pibe.'
+  },
+  {
+    id: 93,
+    categoria: 'deportes',
+    dificultad: 'facil',
+    enunciado: '¿En qué ciudad está el estadio Nemesio Camacho El Campín?',
+    opciones: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla'],
+    correcta: 0,
+    explicacion: 'El Campín es el estadio más emblemático de Bogotá.'
+  },
+  {
+    id: 94,
+    categoria: 'deportes',
+    dificultad: 'facil',
+    enunciado: '¿Qué color usa tradicionalmente la camiseta de la selección Colombia?',
+    opciones: ['Rojo', 'Azul', 'Amarillo', 'Verde'],
+    correcta: 2,
+    explicacion: 'La camiseta titular tradicional de Colombia es amarilla.'
+  },
+  {
+    id: 95,
+    categoria: 'deportes',
+    dificultad: 'facil',
+    enunciado: '¿Qué equipo de Medellín es conocido como El Verde?',
+    opciones: ['Atlético Nacional', 'Millonarios', 'América de Cali', 'Junior'],
+    correcta: 0,
+    explicacion: 'Atlético Nacional es conocido como El Verde o El Verdolaga.'
+  },
+  {
+    id: 96,
+    categoria: 'deportes',
+    dificultad: 'facil',
+    enunciado: '¿En qué deporte destacó Mariana Pajón en Juegos Olímpicos?',
+    opciones: ['Natación', 'Atletismo', 'BMX', 'Gimnasia'],
+    correcta: 2,
+    explicacion: 'Mariana Pajón es medallista olímpica colombiana en BMX.'
+  },
+  {
+    id: 97,
+    categoria: 'deportes',
+    dificultad: 'facil',
+    enunciado: '¿Qué arquero colombiano es famoso por la patada de escorpión?',
+    opciones: ['Óscar Córdoba', 'Faryd Mondragón', 'David Ospina', 'René Higuita'],
+    correcta: 3,
+    explicacion: 'René Higuita popularizó la atajada conocida como el escorpión.'
+  },
+  {
+    id: 98,
+    categoria: 'deportes',
+    dificultad: 'facil',
+    enunciado: '¿Qué ciudad es sede del estadio Metropolitano Roberto Meléndez?',
+    opciones: ['Cartagena', 'Barranquilla', 'Santa Marta', 'Sincelejo'],
+    correcta: 1,
+    explicacion: 'El Metropolitano es el principal estadio de Barranquilla.'
+  },
+  {
+    id: 99,
+    categoria: 'deportes',
+    dificultad: 'facil',
+    enunciado: '¿Qué club bogotano es conocido como Los Embajadores?',
+    opciones: ['Santa Fe', 'Envigado', 'Millonarios', 'Fortaleza'],
+    correcta: 2,
+    explicacion: 'Millonarios Fútbol Club es conocido como Los Embajadores.'
+  },
+  {
+    id: 100,
+    categoria: 'deportes',
+    dificultad: 'facil',
+    enunciado: '¿Qué deporte se asocia a la clásica Vuelta a Colombia?',
+    opciones: ['Ciclismo', 'Motocross', 'Atletismo', 'Remo'],
+    correcta: 0,
+    explicacion: 'La Vuelta a Colombia es una competencia clásica de ciclismo.'
+  },
+  // --- Deportes: medio ---
+  {
+    id: 101,
+    categoria: 'deportes',
+    dificultad: 'medio',
+    enunciado: '¿Qué ciclista colombiano ganó el Tour de Francia 2019?',
+    opciones: ['Nairo Quintana', 'Egan Bernal', 'Rigoberto Urán', 'Esteban Chaves'],
+    correcta: 1,
+    explicacion: 'Egan Bernal se coronó campeón del Tour de Francia en 2019.'
+  },
+  {
+    id: 102,
+    categoria: 'deportes',
+    dificultad: 'medio',
+    enunciado: '¿En qué año Colombia fue sede de la Copa América?',
+    opciones: ['1990', '1994', '1998', '2001'],
+    correcta: 3,
+    explicacion: 'Colombia organizó la Copa América de 2001 y además la ganó.'
+  },
+  {
+    id: 103,
+    categoria: 'deportes',
+    dificultad: 'medio',
+    enunciado: '¿Qué atleta ganó oro olímpico en triple salto en Río 2016?',
+    opciones: ['Sandra Arenas', 'Yulimar Rojas', 'Caterine Ibargüen', 'Ximena Restrepo'],
+    correcta: 2,
+    explicacion: 'Caterine Ibargüen obtuvo el oro olímpico en triple salto en 2016.'
+  },
+  {
+    id: 104,
+    categoria: 'deportes',
+    dificultad: 'medio',
+    enunciado: '¿Qué piloto colombiano compitió en Fórmula 1 e IndyCar?',
+    opciones: ['Juan Pablo Montoya', 'Roberto Guerrero', 'Carlos Muñoz', 'Gustavo Yacamán'],
+    correcta: 0,
+    explicacion: 'Juan Pablo Montoya destacó en Fórmula 1, IndyCar y otras categorías.'
+  },
+  {
+    id: 105,
+    categoria: 'deportes',
+    dificultad: 'medio',
+    enunciado: '¿Qué ciclista colombiano ganó el Giro de Italia en 2014?',
+    opciones: ['Egan Bernal', 'Rigoberto Urán', 'Lucho Herrera', 'Nairo Quintana'],
+    correcta: 3,
+    explicacion: 'Nairo Quintana ganó el Giro de Italia en 2014.'
+  },
+  {
+    id: 106,
+    categoria: 'deportes',
+    dificultad: 'medio',
+    enunciado: '¿Qué boxeador colombiano fue campeón mundial ligero welter?',
+    opciones: ['Rodrigo Valdés', 'Kid Pambelé', 'Miguel Happy Lora', 'Fidel Bassa'],
+    correcta: 1,
+    explicacion: 'Antonio Cervantes, Kid Pambelé, fue campeón mundial de boxeo.'
+  },
+  {
+    id: 107,
+    categoria: 'deportes',
+    dificultad: 'medio',
+    enunciado: '¿Qué club caleño es conocido como Los Diablos Rojos?',
+    opciones: ['América de Cali', 'Deportivo Cali', 'Once Caldas', 'Junior'],
+    correcta: 0,
+    explicacion: 'América de Cali es apodado Los Diablos Rojos.'
+  },
+  {
+    id: 108,
+    categoria: 'deportes',
+    dificultad: 'medio',
+    enunciado: '¿En qué deporte olímpico destacó Óscar Figueroa con oro en Río 2016?',
+    opciones: ['Judo', 'Boxeo', 'Halterofilia', 'Lucha'],
+    correcta: 2,
+    explicacion: 'Óscar Figueroa ganó oro olímpico en halterofilia en 2016.'
+  },
+  {
+    id: 109,
+    categoria: 'deportes',
+    dificultad: 'medio',
+    enunciado: '¿Qué estadio de Medellín comparten Nacional y Medellín?',
+    opciones: ['El Campín', 'Atanasio Girardot', 'Pascual Guerrero', 'Palogrande'],
+    correcta: 1,
+    explicacion: 'El Atanasio Girardot es el estadio principal de Medellín.'
+  },
+  {
+    id: 110,
+    categoria: 'deportes',
+    dificultad: 'medio',
+    enunciado: '¿Qué futbolista colombiano brilló en el Napoli italiano en los 90?',
+    opciones: ['Iván Valenciano', 'Arnoldo Iguarán', 'Willington Ortiz', 'Faustino Asprilla'],
+    correcta: 3,
+    explicacion: 'Faustino Asprilla tuvo una etapa destacada en el Napoli.'
+  },
+  // --- Deportes: difícil ---
+  {
+    id: 111,
+    categoria: 'deportes',
+    dificultad: 'dificil',
+    enunciado: '¿Qué ciclista colombiano ganó la Vuelta a España en 1987?',
+    opciones: ['Lucho Herrera', 'Fabio Parra', 'Martín Emilio Cochise', 'Santiago Botero'],
+    correcta: 0,
+    explicacion: 'Luis Lucho Herrera ganó la Vuelta a España en 1987.'
+  },
+  {
+    id: 112,
+    categoria: 'deportes',
+    dificultad: 'dificil',
+    enunciado: '¿En qué municipio nació el boxeador Kid Pambelé?',
+    opciones: ['Cartagena', 'Barranquilla', 'San Juan de Nepomuceno', 'Sincelejo'],
+    correcta: 2,
+    explicacion: 'Antonio Cervantes nació en San Juan de Nepomuceno, Bolívar.'
+  },
+  {
+    id: 113,
+    categoria: 'deportes',
+    dificultad: 'dificil',
+    enunciado: '¿Qué club ganó la Copa Libertadores en 1989?',
+    opciones: ['Millonarios', 'América de Cali', 'Junior', 'Atlético Nacional'],
+    correcta: 3,
+    explicacion: 'Atlético Nacional conquistó la Copa Libertadores en 1989.'
+  },
+  {
+    id: 114,
+    categoria: 'deportes',
+    dificultad: 'dificil',
+    enunciado: '¿Qué atleta colombiana ganó bronce en 400 metros en Barcelona 1992?',
+    opciones: ['Caterine Ibargüen', 'Ximena Restrepo', 'Sandra Arenas', 'Norma Enriqueta Basilio'],
+    correcta: 1,
+    explicacion: 'Ximena Restrepo obtuvo bronce olímpico en 400 metros en 1992.'
+  },
+  {
+    id: 115,
+    categoria: 'deportes',
+    dificultad: 'dificil',
+    enunciado: '¿Qué equipo de Manizales es conocido como El Blanco?',
+    opciones: ['Deportivo Pereira', 'Once Caldas', 'Envigado', 'Fortaleza'],
+    correcta: 1,
+    explicacion: 'Once Caldas, de Manizales, es conocido como El Blanco.'
+  },
+  {
+    id: 116,
+    categoria: 'deportes',
+    dificultad: 'dificil',
+    enunciado: '¿Qué ciclista fue pionero colombiano en el ciclismo europeo de ruta?',
+    opciones: ['Nairo Quintana', 'Egan Bernal', 'Lucho Herrera', 'Martín Emilio Cochise'],
+    correcta: 3,
+    explicacion: 'Martín Emilio Cochise Rodríguez fue pionero del ciclismo colombiano en Europa.'
+  },
+  {
+    id: 117,
+    categoria: 'deportes',
+    dificultad: 'dificil',
+    enunciado: '¿En qué año Once Caldas ganó la Copa Libertadores?',
+    opciones: ['2001', '2004', '2002', '2005'],
+    correcta: 1,
+    explicacion: 'Once Caldas se coronó campeón de la Copa Libertadores en 2004.'
+  },
+  {
+    id: 118,
+    categoria: 'deportes',
+    dificultad: 'dificil',
+    enunciado: '¿Qué patinadora colombiana fue campeona mundial de velocidad?',
+    opciones: ['Cecilia Baena', 'Clara Hughes', 'Ellen van Dijk', 'Andrea Jaramillo'],
+    correcta: 0,
+    explicacion: 'Cecilia Baena es una destacada campeona mundial de patinaje.'
+  },
+  {
+    id: 119,
+    categoria: 'deportes',
+    dificultad: 'dificil',
+    enunciado: '¿Qué estadio es el principal escenario futbolístico de Cali?',
+    opciones: ['Atanasio Girardot', 'El Campín', 'Metropolitano', 'Pascual Guerrero'],
+    correcta: 3,
+    explicacion: 'El estadio Olímpico Pascual Guerrero es el principal de Cali.'
+  },
+  {
+    id: 120,
+    categoria: 'deportes',
+    dificultad: 'dificil',
+    enunciado: '¿Quién fue máximo goleador histórico de la selección antes de Falcao?',
+    opciones: ['Carlos Bacca', 'James Rodríguez', 'Arnoldo Iguarán', 'Freddy Rincón'],
+    correcta: 2,
+    explicacion: 'Arnoldo Iguarán fue el máximo goleador histórico antes de Falcao.'
+  },
 ];
