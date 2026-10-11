@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -660,10 +660,125 @@
       </div>
     </section>
 
-        <section id="pantalla-ranking" class="pantalla" hidden aria-labelledby="titulo-ranking">
-      <h2 id="titulo-ranking">Ranking</h2>
-      <p class="pantalla__aviso">Pantalla pendiente de implementar.</p>
-      <button type="button" class="boton boton--secundario" data-ir="inicio">Volver</button>
+    <!-- Pantalla: Ranking (Figma Escritorio 3:615 / Móvil 6:316) — datos de ejemplo estáticos -->
+    <section id="pantalla-ranking" class="pantalla pantalla-ranking" hidden aria-labelledby="titulo-ranking">
+      <button type="button" class="boton-volver" data-ir="inicio">
+        <svg class="icono" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M15 5L8 12L15 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Volver
+      </button>
+
+      <header class="pagina-cabecera">
+        <h2 id="titulo-ranking" class="pagina-cabecera__titulo">Ranking</h2>
+        <p class="pagina-cabecera__subtitulo">Los 10 mejores puntajes guardados en este dispositivo.</p>
+      </header>
+
+      <div class="ranking-layout">
+        <div class="tabla-ranking" role="table" aria-label="Top 10">
+          <div class="tabla-ranking__fila tabla-ranking__fila--cabeza" role="row">
+            <span role="columnheader">Pos.</span>
+            <span role="columnheader">Nombre</span>
+            <span role="columnheader">Puntaje</span>
+            <span role="columnheader">Categoría</span>
+            <span role="columnheader">Fecha</span>
+          </div>
+          <div class="tabla-ranking__fila tabla-ranking__fila--podio" role="row">
+            <span class="posicion posicion--oro" role="cell">1</span>
+            <span role="cell">Valentina</span>
+            <span class="tabla-ranking__puntaje" role="cell">1.840</span>
+            <span role="cell">Geografía</span>
+            <span role="cell">08/10/2026</span>
+          </div>
+          <div class="tabla-ranking__fila tabla-ranking__fila--podio" role="row">
+            <span class="posicion posicion--plata" role="cell">2</span>
+            <span role="cell">Mateo</span>
+            <span class="tabla-ranking__puntaje" role="cell">1.720</span>
+            <span role="cell">Historia</span>
+            <span role="cell">07/10/2026</span>
+          </div>
+          <div class="tabla-ranking__fila tabla-ranking__fila--podio tabla-ranking__fila--tu" role="row">
+            <span class="posicion posicion--bronce" role="cell">3</span>
+            <span role="cell">Ana (tú)</span>
+            <span class="tabla-ranking__puntaje" role="cell">1.250</span>
+            <span role="cell">Historia</span>
+            <span role="cell">10/10/2026</span>
+          </div>
+          <div class="tabla-ranking__fila" role="row">
+            <span class="posicion" role="cell">4</span>
+            <span role="cell">Sofía</span>
+            <span class="tabla-ranking__puntaje" role="cell">1.180</span>
+            <span role="cell">Cultura y Tradiciones</span>
+            <span role="cell">05/10/2026</span>
+          </div>
+          <div class="tabla-ranking__fila" role="row">
+            <span class="posicion" role="cell">5</span>
+            <span role="cell">Juan</span>
+            <span class="tabla-ranking__puntaje" role="cell">1.105</span>
+            <span role="cell">Deportes</span>
+            <span role="cell">09/10/2026</span>
+          </div>
+          <div class="tabla-ranking__fila" role="row">
+            <span class="posicion" role="cell">6</span>
+            <span role="cell">Camila</span>
+            <span class="tabla-ranking__puntaje" role="cell">980</span>
+            <span role="cell">Ciencia y Naturaleza</span>
+            <span role="cell">06/10/2026</span>
+          </div>
+          <div class="tabla-ranking__fila" role="row">
+            <span class="posicion" role="cell">7</span>
+            <span role="cell">Daniel</span>
+            <span class="tabla-ranking__puntaje" role="cell">940</span>
+            <span role="cell">Geografía</span>
+            <span role="cell">04/10/2026</span>
+          </div>
+          <div class="tabla-ranking__fila" role="row">
+            <span class="posicion" role="cell">8</span>
+            <span role="cell">Laura</span>
+            <span class="tabla-ranking__puntaje" role="cell">875</span>
+            <span role="cell">Todas</span>
+            <span role="cell">03/10/2026</span>
+          </div>
+          <div class="tabla-ranking__fila" role="row">
+            <span class="posicion" role="cell">9</span>
+            <span role="cell">Andrés</span>
+            <span class="tabla-ranking__puntaje" role="cell">820</span>
+            <span role="cell">Deportes</span>
+            <span role="cell">02/10/2026</span>
+          </div>
+          <div class="tabla-ranking__fila" role="row">
+            <span class="posicion" role="cell">10</span>
+            <span role="cell">Mariana</span>
+            <span class="tabla-ranking__puntaje" role="cell">760</span>
+            <span role="cell">Historia</span>
+            <span role="cell">01/10/2026</span>
+          </div>
+        </div>
+
+        <aside class="stats-laterales">
+          <h3 class="stats-laterales__titulo">Tus estadísticas</h3>
+          <dl class="stats-laterales__lista">
+            <div>
+              <dt>Partidas jugadas</dt>
+              <dd>12</dd>
+            </div>
+            <div>
+              <dt>Porcentaje de aciertos</dt>
+              <dd>68 %</dd>
+            </div>
+            <div>
+              <dt>Mejor puntaje</dt>
+              <dd>1.250</dd>
+            </div>
+            <div>
+              <dt>Mejor categoría</dt>
+              <dd>Historia</dd>
+            </div>
+          </dl>
+          <button type="button" class="boton boton--primario" data-ir="configuracion">Jugar de nuevo</button>
+          <button type="button" class="boton boton--secundario" id="btn-borrar-ranking">Borrar ranking</button>
+        </aside>
+      </div>
     </section>
   </main>
 
