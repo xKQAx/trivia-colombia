@@ -28,9 +28,20 @@ export const estado = {
   historial: [],
   /** @type {ReturnType<typeof setInterval>|null} */
   temporizadorId: null,
+  /** Marca absoluta de fin de pregunta (Date.now), para tiempo real */
+  horaFinPregunta: 0,
   /** Índices ocultos por 50/50 en la pregunta actual */
   opcionesOcultas: /** @type {number[]} */ ([])
 };
+
+/**
+ * Segundos restantes a partir de una marca de fin (tiempo real, no ticks).
+ * @param {number} horaFinMs
+ * @param {number} [ahoraMs]
+ */
+export function calcularSegundosRestantes(horaFinMs, ahoraMs = Date.now()) {
+  return Math.max(0, Math.ceil((horaFinMs - ahoraMs) / 1000));
+}
 
 /**
  * Fisher-Yates in-place. Devuelve el mismo array para encadenar.
@@ -136,6 +147,7 @@ export function iniciarPartida(nombre, categoria, dificultad) {
   estado.comodines = { cincuenta: true, tiempo: true };
   estado.historial = [];
   estado.opcionesOcultas = [];
+  estado.horaFinPregunta = 0;
 
   return estado;
 }
@@ -244,6 +256,10 @@ export function usarComodin(tipo) {
     estado.puntaje = Math.max(0, estado.puntaje - PENALIZACION_COMODIN);
     estado.tiempoRestante += 10;
     estado.tiempoMaxPregunta += 10;
+    // Extiende el límite absoluto para que el reloj por Date.now() lo refleje
+    if (estado.horaFinPregunta > 0) {
+      estado.horaFinPregunta += 10_000;
+    }
 
     return {
       tipo,
@@ -257,25 +273,29 @@ export function usarComodin(tipo) {
 }
 
 /**
- * Arranca cuenta regresiva de 1 s. Callbacks sin acoplar al DOM.
+ * Cuenta regresiva por tiempo real (Date.now vs hora de fin).
+ * No pausa al ocultar la pestaña: al volver, si agotó dispara alAgotar.
  * @param {(segundos: number) => void} alTick
  * @param {() => void} alAgotar
  */
 export function iniciarTemporizador(alTick, alAgotar) {
   detenerTemporizador();
+  estado.horaFinPregunta = Date.now() + estado.tiempoRestante * 1000;
   alTick?.(estado.tiempoRestante);
 
+  // Intervalo corto: el valor visible sale de timestamps, no de restar 1 por tick
   estado.temporizadorId = setInterval(() => {
-    estado.tiempoRestante -= 1;
-    if (estado.tiempoRestante <= 0) {
+    const restante = calcularSegundosRestantes(estado.horaFinPregunta);
+    estado.tiempoRestante = restante;
+    if (restante <= 0) {
       estado.tiempoRestante = 0;
       detenerTemporizador();
       alTick?.(0);
       alAgotar?.();
       return;
     }
-    alTick?.(estado.tiempoRestante);
-  }, 1000);
+    alTick?.(restante);
+  }, 200);
 }
 
 /**
@@ -290,6 +310,7 @@ export function siguientePregunta() {
   estado.tiempoRestante = TIEMPO_POR_PREGUNTA;
   estado.tiempoMaxPregunta = TIEMPO_POR_PREGUNTA;
   estado.opcionesOcultas = [];
+  estado.horaFinPregunta = 0;
   return true;
 }
 
@@ -326,6 +347,33 @@ export function obtenerResumen() {
 /** Pregunta actual o null. */
 export function obtenerPreguntaActual() {
   return estado.preguntas[estado.indice] ?? null;
+}
+
+/**
+ * Hashes de pantalla válidos (lógica pura para navegación / tests).
+ */
+export const HASHES_VALIDOS = [
+  'inicio',
+  'instrucciones',
+  'configuracion',
+  'juego',
+  'resultado',
+  'ranking'
+];
+
+/**
+ * Resuelve destino desde hash sin acoplar al DOM.
+ * #juego/#resultado sin partida → config o inicio.
+ * @param {string} hash
+ * @param {{ hayPartida?: boolean, hayResultado?: boolean }} [ctx]
+ */
+export function resolverDestinoHash(hash, ctx = {}) {
+  const crudo = String(hash || '').replace(/^#/, '').trim();
+  const clave = crudo || 'inicio';
+  if (!HASHES_VALIDOS.includes(clave)) return 'inicio';
+  if (clave === 'juego' && !ctx.hayPartida) return 'configuracion';
+  if (clave === 'resultado' && !ctx.hayResultado) return 'inicio';
+  return clave;
 }
 
 export const TIEMPO_INICIAL = TIEMPO_POR_PREGUNTA;

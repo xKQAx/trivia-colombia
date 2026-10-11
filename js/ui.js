@@ -765,3 +765,74 @@ export function nombreCategoria(clave) {
 export function nombreDificultad(clave) {
   return NOMBRES_DIF[clave] ?? clave;
 }
+
+/** Elemento que tenía el foco antes de abrir el diálogo (devolver foco). */
+let focoAntesDialogo = null;
+
+/**
+ * Diálogo nativo reutilizable (showModal: foco atrapado + Escape).
+ * @param {{ titulo: string, mensaje: string, textoCancelar: string, textoConfirmar: string }} opts
+ * @returns {Promise<boolean>} true si confirma
+ */
+export function abrirDialogo(opts) {
+  const dialog = /** @type {HTMLDialogElement|null} */ (document.getElementById('dialogo-app'));
+  if (!dialog || typeof dialog.showModal !== 'function') {
+    return Promise.resolve(window.confirm(`${opts.titulo}\n\n${opts.mensaje}`));
+  }
+
+  const titulo = document.getElementById('dialogo-titulo');
+  const mensaje = document.getElementById('dialogo-mensaje');
+  const btnCancelar = document.getElementById('dialogo-cancelar');
+  const btnConfirmar = document.getElementById('dialogo-confirmar');
+
+  if (titulo) titulo.textContent = opts.titulo;
+  if (mensaje) mensaje.textContent = opts.mensaje;
+  if (btnCancelar) btnCancelar.textContent = opts.textoCancelar;
+  if (btnConfirmar) btnConfirmar.textContent = opts.textoConfirmar;
+
+  focoAntesDialogo = document.activeElement instanceof HTMLElement
+    ? document.activeElement
+    : null;
+
+  return new Promise((resolve) => {
+    const alCerrar = () => {
+      dialog.removeEventListener('close', alCerrar);
+      const confirmado = dialog.returnValue === 'confirmar';
+      const destinoFoco = focoAntesDialogo;
+      focoAntesDialogo = null;
+      // Devolver foco al disparador tras cerrar
+      requestAnimationFrame(() => destinoFoco?.focus?.());
+      resolve(confirmado);
+    };
+    dialog.addEventListener('close', alCerrar);
+    dialog.returnValue = '';
+    dialog.showModal();
+    btnCancelar?.focus();
+  });
+}
+
+/**
+ * Confirma salida de partida (texto fijo del producto).
+ * @returns {Promise<boolean>}
+ */
+export function confirmarSalirPartida() {
+  return abrirDialogo({
+    titulo: 'Salir de la partida',
+    mensaje: '¿Salir de la partida? Perderás tu progreso.',
+    textoCancelar: 'Seguir jugando',
+    textoConfirmar: 'Salir'
+  });
+}
+
+/**
+ * Confirma borrado del ranking.
+ * @returns {Promise<boolean>}
+ */
+export function confirmarBorrarRanking() {
+  return abrirDialogo({
+    titulo: 'Borrar ranking',
+    mensaje: '¿Seguro que quieres borrar el ranking de este dispositivo?',
+    textoCancelar: 'Cancelar',
+    textoConfirmar: 'Borrar'
+  });
+}

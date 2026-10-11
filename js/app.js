@@ -12,7 +12,8 @@ import {
   detenerTemporizador,
   siguientePregunta,
   obtenerResumen,
-  obtenerPreguntaActual
+  obtenerPreguntaActual,
+  resolverDestinoHash
 } from './juego.js';
 import {
   cargarRanking,
@@ -37,6 +38,18 @@ let ultimaEntradaRanking = null;
 
 /** Preferencias en memoria. */
 let prefs = cargarPreferencias();
+
+/** Partida en curso (no guardada aún / no abandonada). */
+let partidaActiva = false;
+
+/** Hay un resultado reciente para permitir #resultado. */
+let hayResultado = false;
+
+/** Pantalla lógica actual (para historial). */
+let pantallaActual = 'inicio';
+
+/** Evita dobles clics en acciones sensibles. */
+let bloqueoAccion = false;
 
 /** Web Audio: se crea tras el primer gesto del usuario. */
 let audioCtx = null;
@@ -107,16 +120,91 @@ function refrescarMejorEnConfig() {
   );
 }
 
-function irA(destino) {
+/**
+ * Empuja o reemplaza el hash de pantalla.
+ * @param {string} destino
+ * @param {{ reemplazar?: boolean }} [opts]
+ */
+function sincronizarHistorial(destino, opts = {}) {
+  const hash = `#${destino}`;
+  const estadoHist = { pantalla: destino };
+  if (opts.reemplazar) {
+    history.replaceState(estadoHist, '', hash);
+  } else if (location.hash !== hash) {
+    history.pushState(estadoHist, '', hash);
+  } else {
+    history.replaceState(estadoHist, '', hash);
+  }
+}
+
+/**
+ * Abandona la partida sin guardar y vuelve a configuración.
+ */
+function abandonarPartida() {
+  detenerTemporizador();
+  partidaActiva = false;
+  estado.preguntas = [];
+  estado.respondida = false;
+  estado.historial = [];
+}
+
+/**
+ * Navegación central: data-ir, historial y guards de partida.
+ * @param {string} destino
+ * @param {{ desdeHistor?: boolean, reemplazar?: boolean, forzar?: boolean }} [opts]
+ */
+async function irA(destino, opts = {}) {
+  const { desdeHistor = false, reemplazar = false, forzar = false } = opts;
+
+  const resuelto = resolverDestinoHash(`#${destino}`, {
+    hayPartida: partidaActiva,
+    hayResultado
+  });
+
+  // Si pedían juego/resultado inválidos, redirigir al fallback
+  if (resuelto !== destino && (destino === 'juego' || destino === 'resultado')) {
+    return irA(resuelto, { reemplazar: true });
+  }
+
+  const dejandoPartida =
+    partidaActiva &&
+    !forzar &&
+    destino !== 'juego' &&
+    destino !== 'retroalimentacion';
+
+  if (dejandoPartida) {
+    const confirmar = await ui.confirmarSalirPartida();
+    if (!confirmar) {
+      // Seguir jugando: mantener / restaurar #juego en el historial
+      if (desdeHistorial || location.hash !== '#juego') {
+        history.pushState({ pantalla: 'juego' }, '', '#juego');
+      }
+      return;
+    }
+    abandonarPartida();
+    if (destino === 'inicio' || destino === 'instrucciones' || destino === 'ranking') {
+      // ok
+    } else {
+      destino = 'configuracion';
+    }
+  }
+
   if (destino === 'ranking') {
     ui.renderizarRanking(cargarRanking(), ultimaEntradaRanking, obtenerResumenEstadisticas());
   }
   if (destino === 'configuracion') {
     refrescarMejorEnConfig();
   }
-  if (destino === 'juego' || destino === 'retroalimentacion') {
-    // Evitar saltos manuales a partida a mitad de flujo
+
+  // Retroalimentación comparte hash #juego
+  const hashPantalla = destino === 'retroalimentacion' ? 'juego' : destino;
+  pantallaActual = destino;
+  if (!desdeHistorial) {
+    sincronizarHistorial(hashPantalla, { reemplazar });
+  } else if (location.hash !== `#${hashPantalla}`) {
+    history.replaceState({ pantalla: hashPantalla }, '', `#${hashPantalla}`);
   }
+
   ui.mostrarPantalla(destino);
 }
 
@@ -142,7 +230,7 @@ function mostrarPreguntaActual() {
   ui.actualizarMarcador(estado.puntaje, estado.racha);
   ui.actualizarComodines(estado.comodines, false);
   ui.actualizarTemporizador(estado.tiempoRestante, estado.tiempoMaxPregunta);
-  ui.mostrarPantalla('juego');
+  irA('juego', { reemplazar: pantallaActual === 'juego' || pantallaActual === 'retroalimentacion' });
   iniciarTemporizador(alTick, alAgotar);
 }
 
@@ -178,6 +266,11 @@ function finalizarRespuesta(resultado) {
     estado.racha,
     estado.tiempoRestante
   );
+  pantallaActual = 'retroalimentacion';
+  // Mantener hash #juego durante la retroalimentación
+  if (location.hash !== '#juego') {
+    history.replaceState({ pantalla: 'juego' }, '', '#juego');
+  }
 }
 
 function comenzarPartida() {
@@ -187,12 +280,14 @@ function comenzarPartida() {
     prefs.ultimoNombre;
   const check = validarNombre(nombre);
   if (!check.ok) {
-    ui.mostrarPantalla('inicio');
+    irA('inicio', { reemplazar: true });
     ui.mostrarErrorNombre(check.error);
     return;
   }
 
   iniciarPartida(check.nombre, config.categoria, config.dificultad);
+  partidaActiva = true;
+  hayResultado = false;
   mostrarPreguntaActual();
 }
 
@@ -221,14 +316,26 @@ function terminarPartida() {
     detallePreguntas: resumen.detallePreguntas
   });
 
+  partidaActiva = false;
+  hayResultado = true;
   ui.mostrarResultado(resumen, posicion);
+  pantallaActual = 'resultado';
+  sincronizarHistorial('resultado');
 }
 
-function onSiguiente() {
-  if (!estado.respondida) return;
-  const hayMas = siguientePregunta();
-  if (hayMas) mostrarPreguntaActual();
-  else terminarPartida();
+async function onSiguiente() {
+  if (!estado.respondida || bloqueoAccion) return;
+  bloqueoAccion = true;
+  const btn = document.getElementById('btn-siguiente');
+  if (btn) btn.disabled = true;
+  try {
+    const hayMas = siguientePregunta();
+    if (hayMas) mostrarPreguntaActual();
+    else terminarPartida();
+  } finally {
+    bloqueoAccion = false;
+    if (btn) btn.disabled = false;
+  }
 }
 
 function onRespuestaClick(evento) {
@@ -300,8 +407,38 @@ function aplicarPreferenciasIniciales() {
   }
 }
 
+async function alPopState() {
+  const destino = resolverDestinoHash(location.hash, {
+    hayPartida: partidaActiva,
+    hayResultado
+  });
+
+  if (partidaActiva && destino !== 'juego') {
+    const confirmar = await ui.confirmarSalirPartida();
+    if (!confirmar) {
+      history.pushState({ pantalla: 'juego' }, '', '#juego');
+      return;
+    }
+    abandonarPartida();
+    await irA(destino === 'resultado' ? 'configuracion' : destino, {
+      desdeHistor: true,
+      forzar: true
+    });
+    return;
+  }
+
+  await irA(destino, { desdeHistor: true, forzar: true });
+}
+
 function inicializar() {
   aplicarPreferenciasIniciales();
+
+  // Reload siempre a inicio (ignora hash previo)
+  partidaActiva = false;
+  hayResultado = false;
+  pantallaActual = 'inicio';
+  history.replaceState({ pantalla: 'inicio' }, '', '#inicio');
+  ui.mostrarPantalla('inicio');
 
   // Primer gesto: habilita AudioContext (política del navegador)
   const desbloquearAudio = () => {
@@ -310,45 +447,63 @@ function inicializar() {
   };
   document.addEventListener('pointerdown', desbloquearAudio);
 
+  window.addEventListener('popstate', () => {
+    alPopState();
+  });
+
+  // Aviso al cerrar/recargar con partida en curso
+  window.addEventListener('beforeunload', (evento) => {
+    if (!partidaActiva) return;
+    evento.preventDefault();
+    evento.returnValue = '';
+  });
+
   document.querySelectorAll('[data-ir]').forEach((elemento) => {
     elemento.addEventListener('click', (evento) => {
-      // btn-siguiente se maneja aparte (ya no debería tener data-ir)
       if (elemento.id === 'btn-siguiente') return;
       evento.preventDefault();
       const destino = elemento.getAttribute('data-ir');
       if (!destino) return;
-
-      // Durante partida activa, logo/volver reinician flujo con cuidado
-      if (destino === 'inicio' || destino === 'configuracion') {
-        detenerTemporizador();
-      }
       irA(destino);
     });
   });
 
-  document.getElementById('btn-jugar')?.addEventListener('click', () => {
-    const entrada = document.getElementById('entrada-nombre');
-    const check = validarNombre(entrada?.value);
-    if (!check.ok) {
-      ui.mostrarErrorNombre(check.error);
-      return;
+  document.getElementById('btn-jugar')?.addEventListener('click', async () => {
+    if (bloqueoAccion) return;
+    bloqueoAccion = true;
+    try {
+      const entrada = document.getElementById('entrada-nombre');
+      const check = validarNombre(entrada?.value);
+      if (!check.ok) {
+        ui.mostrarErrorNombre(check.error);
+        return;
+      }
+      ui.limpiarErrorNombre();
+      estado.nombre = check.nombre;
+      prefs = guardarPreferencias({ ...prefs, ultimoNombre: check.nombre });
+      config.categoria = 'todas';
+      config.dificultad = 'facil';
+      refrescarMejorEnConfig();
+      await irA('configuracion');
+    } finally {
+      bloqueoAccion = false;
     }
-    ui.limpiarErrorNombre();
-    estado.nombre = check.nombre;
-    prefs = guardarPreferencias({ ...prefs, ultimoNombre: check.nombre });
-    config.categoria = 'todas';
-    config.dificultad = 'facil';
-    refrescarMejorEnConfig();
-    ui.mostrarPantalla('configuracion');
   });
 
   document.getElementById('entrada-nombre')?.addEventListener('input', () => {
     ui.limpiarErrorNombre();
   });
 
+  document.getElementById('entrada-nombre')?.addEventListener('keydown', (evento) => {
+    if (evento.key !== 'Enter') return;
+    evento.preventDefault();
+    document.getElementById('btn-jugar')?.click();
+  });
+
   enlazarConfiguracion();
 
   document.getElementById('btn-comenzar')?.addEventListener('click', () => {
+    if (bloqueoAccion) return;
     reproducirSonido('click');
     comenzarPartida();
   });
@@ -356,6 +511,8 @@ function inicializar() {
   document.getElementById('juego-opciones')?.addEventListener('click', onRespuestaClick);
 
   document.getElementById('btn-5050')?.addEventListener('click', () => {
+    const btn = document.getElementById('btn-5050');
+    if (btn?.disabled || bloqueoAccion) return;
     const r = usarComodin('cincuenta');
     if (!r) return;
     ui.ocultarOpciones(r.ocultar);
@@ -365,6 +522,8 @@ function inicializar() {
   });
 
   document.getElementById('btn-tiempo-extra')?.addEventListener('click', () => {
+    const btn = document.getElementById('btn-tiempo-extra');
+    if (btn?.disabled || bloqueoAccion) return;
     const r = usarComodin('tiempo');
     if (!r) return;
     ui.actualizarTemporizador(estado.tiempoRestante, estado.tiempoMaxPregunta);
@@ -377,8 +536,16 @@ function inicializar() {
     onSiguiente();
   });
 
-  document.getElementById('btn-borrar-ranking')?.addEventListener('click', () => {
-    const ok = window.confirm('¿Seguro que quieres borrar el ranking de este dispositivo?');
+  document.getElementById('btn-salir-partida')?.addEventListener('click', async () => {
+    if (!partidaActiva) return;
+    const confirmar = await ui.confirmarSalirPartida();
+    if (!confirmar) return;
+    abandonarPartida();
+    await irA('configuracion', { forzar: true });
+  });
+
+  document.getElementById('btn-borrar-ranking')?.addEventListener('click', async () => {
+    const ok = await ui.confirmarBorrarRanking();
     if (!ok) return;
     borrarRanking();
     ultimaEntradaRanking = null;
@@ -409,7 +576,6 @@ function inicializar() {
 
   document.addEventListener('keydown', onTeclado);
 
-  // Defaults visuales: todas / fácil
   refrescarMejorEnConfig();
 }
 

@@ -321,6 +321,80 @@ main {
   color: var(--color-primario);
 }
 
+/* Salir de partida: fantasma pequeño, arriba izquierda */
+.boton-salir {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 6px;
+  min-height: 36px;
+  padding: 6px 10px 6px 6px;
+  border-radius: var(--radio-sm);
+  color: var(--color-texto-suave);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.boton-salir:hover {
+  background-color: var(--color-primario-suave);
+  color: var(--color-primario);
+}
+
+/* Diálogo nativo (tema claro/oscuro vía variables) */
+.dialogo {
+  width: min(100% - 32px, 420px);
+  margin: auto;
+  padding: 0;
+  border: 1.5px solid var(--color-borde);
+  border-radius: var(--radio-xl);
+  background-color: var(--color-tarjeta);
+  color: var(--color-texto);
+  box-shadow: 0 20px 48px var(--color-sombra);
+}
+
+.dialogo::backdrop {
+  background-color: rgba(27, 22, 18, 0.45);
+}
+
+.dialogo__cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px;
+}
+
+.dialogo__titulo {
+  font-family: var(--fuente-titulos);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.dialogo__mensaje {
+  color: var(--color-texto-suave);
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+.dialogo__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.dialogo__acciones .boton--secundario {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.dialogo__acciones .boton--primario {
+  width: auto;
+  min-width: 120px;
+}
+
 /* Cabecera de página interna */
 .pagina-cabecera {
   display: flex;
