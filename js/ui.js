@@ -178,6 +178,31 @@ function inicializar() {
     mostrarPantalla("juego");
   });
 
+  // Demo visual: elegir opción → pantalla de retroalimentación (sin scoring real)
+  document.querySelectorAll("#juego-opciones .opcion").forEach((boton) => {
+    boton.addEventListener("click", () => {
+      console.log("Respuesta demo (stub)", boton.getAttribute("data-opcion"));
+      mostrarPantalla("retroalimentacion");
+    });
+  });
+
+  // Comodines: solo feedback visual deshabilitando el botón
+  document.getElementById("btn-5050")?.addEventListener("click", (evento) => {
+    const boton = evento.currentTarget;
+    boton.disabled = true;
+    boton.textContent = "50/50 usado";
+  });
+
+  document.getElementById("btn-tiempo-extra")?.addEventListener("click", (evento) => {
+    const boton = evento.currentTarget;
+    boton.disabled = true;
+    const tiempo = document.getElementById("juego-tiempo");
+    if (tiempo) {
+      const actual = Number.parseInt(tiempo.textContent ?? "14", 10) || 14;
+      tiempo.textContent = String(actual + 10);
+    }
+  });
+
   refrescarCabeceraConfig();
 }
 

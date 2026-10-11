@@ -307,6 +307,87 @@
     font-size: 0.9rem;
   }
 
+  /* Juego / Retro M3–M5 */
+  .pantalla-juego {
+    padding-top: var(--espacio-3);
+  }
+
+  .partida {
+    gap: var(--espacio-2);
+  }
+
+  .partida__barra {
+    grid-template-columns: 1fr auto 1fr;
+    min-height: 76px;
+    gap: 8px;
+  }
+
+  .partida__contador,
+  .partida__puntaje {
+    font-size: 1.35rem;
+  }
+
+  .temporizador {
+    width: 76px;
+    height: 76px;
+    border-width: 4px;
+  }
+
+  .temporizador__valor {
+    font-size: 1.55rem;
+  }
+
+  .barra-progreso {
+    height: 10px;
+  }
+
+  .pregunta-bloque {
+    padding: 16px;
+  }
+
+  .opciones {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .opcion {
+    min-height: 68px;
+    padding: 14px;
+    font-size: 1rem;
+  }
+
+  .opcion__letra {
+    width: 36px;
+    height: 36px;
+  }
+
+  .comodines-acciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .boton--comodin {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 10px;
+    font-size: 0.85rem;
+  }
+
+  .retro-acciones {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .retro-acciones .boton--auto {
+    width: 100%;
+    min-width: 0;
+    min-height: 58px;
+  }
+
+  .comodines-acciones--inactivos {
+    display: none;
+  }
+
   .pie {
     padding-block: 16px;
     font-size: 0.8rem;

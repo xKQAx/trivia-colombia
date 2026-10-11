@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -391,11 +391,75 @@
       </div>
     </section>
 
-    <section id="pantalla-juego" class="pantalla" hidden aria-labelledby="titulo-juego">
-      <h2 id="titulo-juego">Juego</h2>
+    <!-- Pantalla: Juego (Figma Escritorio 3:322 / Móvil 4:163) — demo visual estática -->
+    <section id="pantalla-juego" class="pantalla pantalla-juego" hidden aria-labelledby="titulo-juego">
+      <div class="partida">
+        <div class="partida__barra">
+          <div class="partida__meta">
+            <p class="partida__etiqueta">Pregunta</p>
+            <p class="partida__contador" id="titulo-juego"><span id="juego-num">3</span> / 10</p>
+          </div>
+
+          <div class="temporizador" aria-label="Tiempo restante">
+            <span class="temporizador__valor" id="juego-tiempo">14</span>
+          </div>
+
+          <div class="partida__stats">
+            <p class="partida__etiqueta">Puntaje</p>
+            <p class="partida__puntaje" id="juego-puntaje">250</p>
+            <p class="chip chip--racha" id="juego-racha">
+              <svg class="icono" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 3C10 7 13 8.5 13 11.5C13 13.5 11.5 15 10 15C13 18 16.5 16 17.5 12.5C19 8.5 16 5 12 3Z" fill="currentColor"/>
+              </svg>
+              Racha: 2
+            </p>
+          </div>
+        </div>
+
+        <div class="barra-progreso" aria-hidden="true">
+          <span class="barra-progreso__lleno" style="width: 30%"></span>
+        </div>
+
+        <article class="pregunta-bloque">
+          <p class="chip" id="juego-chip-cat">Ciencia y Naturaleza · Fácil</p>
+          <h2 class="pregunta-bloque__enunciado" id="juego-enunciado">¿Cuál es el ave nacional de Colombia?</h2>
+        </article>
+
+        <div class="opciones" id="juego-opciones" role="group" aria-label="Opciones de respuesta">
+          <button type="button" class="opcion" data-opcion="0">
+            <span class="opcion__letra">A</span>
+            <span class="opcion__texto">Guacamaya</span>
+          </button>
+          <button type="button" class="opcion" data-opcion="1">
+            <span class="opcion__letra">B</span>
+            <span class="opcion__texto">Cóndor de los Andes</span>
+          </button>
+          <button type="button" class="opcion" data-opcion="2">
+            <span class="opcion__letra">C</span>
+            <span class="opcion__texto">Colibrí</span>
+          </button>
+          <button type="button" class="opcion" data-opcion="3">
+            <span class="opcion__letra">D</span>
+            <span class="opcion__texto">Tucán</span>
+          </button>
+        </div>
+
+        <div class="comodines-acciones">
+          <button type="button" class="boton boton--secundario boton--comodin" id="btn-5050">
+            50/50 · −30 pts
+          </button>
+          <button type="button" class="boton boton--secundario boton--comodin" id="btn-tiempo-extra">
+            <svg class="icono" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 7.5V12.5L15 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            +10 s · −30 pts
+          </button>
+        </div>
+      </div>
     </section>
 
-    <section id="pantalla-retroalimentacion" class="pantalla" hidden aria-labelledby="titulo-retroalimentacion">
+        <section id="pantalla-retroalimentacion" class="pantalla" hidden aria-labelledby="titulo-retroalimentacion">
       <h2 id="titulo-retroalimentacion">Retroalimentación</h2>
     </section>
 
