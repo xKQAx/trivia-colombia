@@ -1110,4 +1110,277 @@ export const PREGUNTAS = [
     correcta: 2,
     explicacion: 'Arnoldo Iguarán fue el máximo goleador histórico antes de Falcao.'
   },
+  // --- Naturaleza: fácil ---
+  {
+    id: 121,
+    categoria: 'naturaleza',
+    dificultad: 'facil',
+    enunciado: '¿Cuál es el ave nacional de Colombia?',
+    opciones: ['Guacamaya', 'Cóndor de los Andes', 'Colibrí', 'Tucán'],
+    correcta: 1,
+    explicacion: 'El cóndor de los Andes aparece en el escudo nacional.'
+  },
+  {
+    id: 122,
+    categoria: 'naturaleza',
+    dificultad: 'facil',
+    enunciado: '¿Cuál es la flor nacional de Colombia?',
+    opciones: ['Orquídea cattleya', 'Rosa', 'Girasol', 'Hortensia'],
+    correcta: 0,
+    explicacion: 'La orquídea Cattleya trianae es la flor nacional de Colombia.'
+  },
+  {
+    id: 123,
+    categoria: 'naturaleza',
+    dificultad: 'facil',
+    enunciado: '¿Qué árbol produce el café que se cultiva en Colombia?',
+    opciones: ['Cacao', 'Caucho', 'Cafeto', 'Nogal'],
+    correcta: 2,
+    explicacion: 'El cafeto es la planta de la cual se obtienen los granos de café.'
+  },
+  {
+    id: 124,
+    categoria: 'naturaleza',
+    dificultad: 'facil',
+    enunciado: '¿Qué gran felino habita selvas y bosques de Colombia?',
+    opciones: ['León', 'Tigre de Bengala', 'Puma europeo', 'Jaguar'],
+    correcta: 3,
+    explicacion: 'El jaguar es el felino nativo más grande de América, presente en Colombia.'
+  },
+  {
+    id: 125,
+    categoria: 'naturaleza',
+    dificultad: 'facil',
+    enunciado: '¿En qué océano está el Parque Nacional Natural Gorgona?',
+    opciones: ['Pacífico', 'Atlántico', 'Índico', 'Ártico'],
+    correcta: 0,
+    explicacion: 'La isla Gorgona forma un parque nacional en el océano Pacífico.'
+  },
+  {
+    id: 126,
+    categoria: 'naturaleza',
+    dificultad: 'facil',
+    enunciado: '¿Qué páramo famoso está cerca de Bogotá?',
+    opciones: ['Páramo de Sonsón', 'Páramo del Sol', 'Páramo de Sumapaz', 'Páramo de Frontino'],
+    correcta: 2,
+    explicacion: 'El páramo de Sumapaz es uno de los más extensos y cercanos a Bogotá.'
+  },
+  {
+    id: 127,
+    categoria: 'naturaleza',
+    dificultad: 'facil',
+    enunciado: '¿Qué ecosistema andino almacena agua y alimenta ríos colombianos?',
+    opciones: ['Desierto', 'Páramo', 'Tundra polar', 'Sabana africana'],
+    correcta: 1,
+    explicacion: 'Los páramos regulan el agua de muchas cuencas en Colombia.'
+  },
+  {
+    id: 128,
+    categoria: 'naturaleza',
+    dificultad: 'facil',
+    enunciado: '¿Qué recurso mineral precioso es emblemático de Colombia?',
+    opciones: ['Diamante azul', 'Platino siberiano', 'Jade imperial', 'Esmeralda'],
+    correcta: 3,
+    explicacion: 'Colombia es reconocida mundialmente por sus esmeraldas.'
+  },
+  {
+    id: 129,
+    categoria: 'naturaleza',
+    dificultad: 'facil',
+    enunciado: '¿Qué animal marino desova en playas del Pacífico colombiano?',
+    opciones: ['Pingüino', 'Orca residente', 'Tortuga marina', 'Foca monje'],
+    correcta: 2,
+    explicacion: 'Varias especies de tortugas marinas desovan en costas del Pacífico.'
+  },
+  {
+    id: 130,
+    categoria: 'naturaleza',
+    dificultad: 'facil',
+    enunciado: '¿Qué río amazónico baña la ciudad de Leticia?',
+    opciones: ['Amazonas', 'Magdalena', 'Cauca', 'Sinú'],
+    correcta: 0,
+    explicacion: 'Leticia se encuentra a orillas del río Amazonas.'
+  },
+  // --- Naturaleza: medio ---
+  {
+    id: 131,
+    categoria: 'naturaleza',
+    dificultad: 'medio',
+    enunciado: '¿Qué ave colorida es común en la biodiversidad tropical colombiana?',
+    opciones: ['Guacamaya', 'Pingüino', 'Avestruz', 'Kiwi'],
+    correcta: 0,
+    explicacion: 'Las guacamayas habitan varias regiones y representan la avifauna tropical.'
+  },
+  {
+    id: 132,
+    categoria: 'naturaleza',
+    dificultad: 'medio',
+    enunciado: '¿En qué sierra costera está el Parque Nacional Natural Tayrona?',
+    opciones: ['Sierra de Perijá', 'Sierra Nevada de Santa Marta', 'Serranía del Baudó', 'Cordillera Central'],
+    correcta: 1,
+    explicacion: 'El Tayrona se ubica en la Sierra Nevada de Santa Marta.'
+  },
+  {
+    id: 133,
+    categoria: 'naturaleza',
+    dificultad: 'medio',
+    enunciado: '¿Qué planta es emblemática de los páramos colombianos?',
+    opciones: ['Cactus saguaro', 'Baobab', 'Palma datilera', 'Frailejón'],
+    correcta: 3,
+    explicacion: 'El frailejón es una planta emblemática de los páramos colombianos.'
+  },
+  {
+    id: 134,
+    categoria: 'naturaleza',
+    dificultad: 'medio',
+    enunciado: '¿Qué ballena visita el Pacífico colombiano en temporada reproductiva?',
+    opciones: ['Ballena azul', 'Beluga', 'Ballena jorobada', 'Narval'],
+    correcta: 2,
+    explicacion: 'La ballena jorobada migra al Pacífico colombiano a reproducirse.'
+  },
+  {
+    id: 135,
+    categoria: 'naturaleza',
+    dificultad: 'medio',
+    enunciado: '¿Qué parque nacional protege un oasis montañoso en La Guajira?',
+    opciones: ['El Tuparro', 'Macuira', 'Amacayacu', 'Los Nevados'],
+    correcta: 1,
+    explicacion: 'El Parque Nacional Natural Macuira está en La Guajira.'
+  },
+  {
+    id: 136,
+    categoria: 'naturaleza',
+    dificultad: 'medio',
+    enunciado: '¿Qué primate es nativo de bosques húmedos colombianos?',
+    opciones: ['Gorila', 'Orangután', 'Lémur', 'Mono aullador'],
+    correcta: 3,
+    explicacion: 'Los monos aulladores habitan varias zonas forestales de Colombia.'
+  },
+  {
+    id: 137,
+    categoria: 'naturaleza',
+    dificultad: 'medio',
+    enunciado: '¿Qué volcán nevado forma parte del Parque Los Nevados?',
+    opciones: ['Nevado del Ruiz', 'Cotopaxi', 'Popocatépetl', 'Chimborazo'],
+    correcta: 0,
+    explicacion: 'El Nevado del Ruiz integra el Parque Nacional Natural Los Nevados.'
+  },
+  {
+    id: 138,
+    categoria: 'naturaleza',
+    dificultad: 'medio',
+    enunciado: '¿Qué gran humedal costero hay en el Caribe colombiano?',
+    opciones: ['Lago Titicaca', 'Mar Muerto', 'Ciénaga Grande de Santa Marta', 'Lago Victoria'],
+    correcta: 2,
+    explicacion: 'La Ciénaga Grande de Santa Marta es un gran complejo lagunar del Caribe.'
+  },
+  {
+    id: 139,
+    categoria: 'naturaleza',
+    dificultad: 'medio',
+    enunciado: '¿Qué palma de cera es el árbol nacional de Colombia?',
+    opciones: ['Palma de coco', 'Palma africana', 'Palma real cubana', 'Palma de cera del Quindío'],
+    correcta: 3,
+    explicacion: 'La palma de cera del Quindío es el árbol nacional de Colombia.'
+  },
+  {
+    id: 140,
+    categoria: 'naturaleza',
+    dificultad: 'medio',
+    enunciado: '¿Qué grupo de animales hace de Colombia un país megadiverso?',
+    opciones: ['Pingüinos', 'Ranas y anfibios', 'Focas', 'Camellos'],
+    correcta: 1,
+    explicacion: 'Colombia es uno de los países con mayor diversidad de anfibios.'
+  },
+  // --- Naturaleza: difícil ---
+  {
+    id: 141,
+    categoria: 'naturaleza',
+    dificultad: 'dificil',
+    enunciado: '¿Qué serranía amazónica es famosa por tepuyes y arte rupestre?',
+    opciones: ['Sierra Nevada del Cocuy', 'Cordillera Occidental', 'Serranía de Chiribiquete', 'Serranía del Perijá'],
+    correcta: 2,
+    explicacion: 'Chiribiquete es un parque nacional con tepuyes y arte rupestre.'
+  },
+  {
+    id: 142,
+    categoria: 'naturaleza',
+    dificultad: 'dificil',
+    enunciado: '¿Qué delfín de río habita la Amazonía y la Orinoquía?',
+    opciones: ['Bufeo o delfín rosado', 'Delfín nariz de botella', 'Orca', 'Marsopa'],
+    correcta: 0,
+    explicacion: 'El bufeo o delfín rosado habita ríos amazónicos y orinocenses.'
+  },
+  {
+    id: 143,
+    categoria: 'naturaleza',
+    dificultad: 'dificil',
+    enunciado: '¿Qué parque nacional está en el trapecio amazónico cerca de Leticia?',
+    opciones: ['Tayrona', 'Utría', 'Farallones', 'Amacayacu'],
+    correcta: 3,
+    explicacion: 'El Parque Nacional Natural Amacayacu se encuentra cerca de Leticia.'
+  },
+  {
+    id: 144,
+    categoria: 'naturaleza',
+    dificultad: 'dificil',
+    enunciado: '¿Qué especie de oso habita bosques andinos de Colombia?',
+    opciones: ['Oso polar', 'Oso de anteojos', 'Oso panda', 'Oso pardo europeo'],
+    correcta: 1,
+    explicacion: 'El oso de anteojos u oso andino habita la cordillera de los Andes.'
+  },
+  {
+    id: 145,
+    categoria: 'naturaleza',
+    dificultad: 'dificil',
+    enunciado: '¿Qué reserva de biósfera abarca el archipiélago de San Andrés?',
+    opciones: ['Seaflower', 'Galápagos', 'Maldivas', 'Hawaii'],
+    correcta: 0,
+    explicacion: 'La Reserva de Biósfera Seaflower abarca el archipiélago de San Andrés.'
+  },
+  {
+    id: 146,
+    categoria: 'naturaleza',
+    dificultad: 'dificil',
+    enunciado: '¿Qué pez migratorio es emblemático de la cuenca del Magdalena?',
+    opciones: ['Salmón del Atlántico', 'Atún rojo', 'Bagre', 'Bacalao'],
+    correcta: 2,
+    explicacion: 'El bagre es un pez emblemático de la cuenca del Magdalena.'
+  },
+  {
+    id: 147,
+    categoria: 'naturaleza',
+    dificultad: 'dificil',
+    enunciado: '¿Qué páramo entre Santander y Norte de Santander es clave por el agua?',
+    opciones: ['Páramo de las Papas', 'Páramo de Santurbán', 'Páramo de Belmira', 'Páramo del Sol'],
+    correcta: 1,
+    explicacion: 'El páramo de Santurbán es un ecosistema estratégico de agua.'
+  },
+  {
+    id: 148,
+    categoria: 'naturaleza',
+    dificultad: 'dificil',
+    enunciado: '¿Qué región biogeográfica del Pacífico es de altísimo endemismo?',
+    opciones: ['Patagonia', 'Sahel', 'Siberia', 'Chocó biogeográfico'],
+    correcta: 3,
+    explicacion: 'El Chocó biogeográfico es una de las zonas con mayor endemismo del planeta.'
+  },
+  {
+    id: 149,
+    categoria: 'naturaleza',
+    dificultad: 'dificil',
+    enunciado: '¿Qué isla del Pacífico fue prisión y hoy es parque nacional?',
+    opciones: ['San Andrés', 'Tierra Bomba', 'Gorgona', 'Barú'],
+    correcta: 2,
+    explicacion: 'Gorgona fue prisión y hoy es Parque Nacional Natural.'
+  },
+  {
+    id: 150,
+    categoria: 'naturaleza',
+    dificultad: 'dificil',
+    enunciado: '¿Qué ecosistema del Caribe colombiano forma barreras costeras?',
+    opciones: ['Arrecifes de coral', 'Taiga', 'Estepa', 'Tundra'],
+    correcta: 0,
+    explicacion: 'Los arrecifes de coral son ecosistemas clave del Caribe colombiano.'
+  }
 ];
