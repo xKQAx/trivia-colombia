@@ -12,8 +12,7 @@ import {
   detenerTemporizador,
   siguientePregunta,
   obtenerResumen,
-  obtenerPreguntaActual,
-  TIEMPO_INICIAL
+  obtenerPreguntaActual
 } from './juego.js';
 import {
   cargarRanking,
@@ -392,11 +391,19 @@ function inicializar() {
       tema: prefs.tema === 'oscuro' ? 'claro' : 'oscuro'
     });
     ui.aplicarTema(prefs.tema);
+    const btnTema = document.getElementById('btn-tema');
+    if (btnTema) {
+      btnTema.title = prefs.tema === 'oscuro' ? 'Tema oscuro' : 'Tema claro';
+    }
   });
 
   document.getElementById('btn-sonido')?.addEventListener('click', () => {
     prefs = guardarPreferencias({ ...prefs, sonido: !prefs.sonido });
     ui.aplicarSonido(prefs.sonido);
+    const btnSonido = document.getElementById('btn-sonido');
+    if (btnSonido) {
+      btnSonido.title = prefs.sonido ? 'Sonido activado' : 'Sonido silenciado';
+    }
     if (prefs.sonido) reproducirSonido('click');
   });
 
