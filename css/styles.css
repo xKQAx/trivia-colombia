@@ -295,6 +295,56 @@ main {
   background-color: var(--color-primario-suave);
 }
 
+/* Primario con ancho intrínseco (CTA centrado, no full-bleed) */
+.boton--auto {
+  width: auto;
+  min-width: 219px;
+  padding-inline: 36px;
+}
+
+/* Volver (ghost con icono) — compartido en Instrucciones / Config / Ranking */
+.boton-volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 45px;
+  padding: 10px 14px 10px 10px;
+  border-radius: var(--radio-md);
+  color: var(--color-texto);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.boton-volver:hover {
+  background-color: var(--color-primario-suave);
+  color: var(--color-primario);
+}
+
+/* Cabecera de página interna */
+.pagina-cabecera {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-block: var(--espacio-2) var(--espacio-3);
+  max-width: 36rem;
+  animation: aparecer-arriba 0.55s ease both;
+}
+
+.pagina-cabecera__titulo {
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.pagina-cabecera__subtitulo {
+  color: var(--color-texto-suave);
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
 .campo {
   display: flex;
   flex-direction: column;
@@ -498,6 +548,184 @@ main {
   font-size: 1.15rem;
   line-height: 1.25;
   letter-spacing: -0.02em;
+}
+
+/* ——— Pantalla Instrucciones ——— */
+.pantalla-instrucciones {
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--espacio-4);
+}
+
+.tarjetas-info {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--espacio-3);
+  width: 100%;
+  max-width: var(--ancho-max-contenido);
+  margin-inline: auto;
+  animation: aparecer-arriba 0.6s ease 0.06s both;
+}
+
+.tarjeta-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+  min-height: 477px;
+  padding: 29px;
+  border-radius: var(--radio-xl);
+  background-color: var(--color-tarjeta);
+  border: 1.5px solid var(--color-borde);
+  box-shadow: 0 10px 28px var(--color-sombra);
+}
+
+.tarjeta-info__encabezado {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.tarjeta-info__icono {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radio-md);
+  background-color: var(--color-primario-suave);
+  color: var(--color-primario);
+}
+
+.tarjeta-info__titulo {
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.tarjeta-info__nota {
+  margin-top: auto;
+  color: var(--color-texto-suave);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.lista-pasos {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.lista-pasos__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 1rem;
+  line-height: 1.35;
+  color: var(--color-texto);
+}
+
+.lista-pasos__numero {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--color-primario);
+  color: var(--color-sobre-primario);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.comodines-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.comodin-fila {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 84px;
+  padding: 14px 16px;
+  border-radius: var(--radio-lg);
+  background-color: color-mix(in srgb, var(--color-fondo) 70%, var(--color-tarjeta));
+  border: 1px solid var(--color-borde);
+}
+
+.comodin-fila__badge {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radio-md);
+  background-color: var(--color-primario);
+  color: var(--color-sobre-primario);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.comodin-fila__badge--icono {
+  color: var(--color-sobre-primario);
+}
+
+.comodin-fila__nombre {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.comodin-fila__desc {
+  color: var(--color-texto-suave);
+  font-size: 0.95rem;
+}
+
+.tabla-puntos {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.tabla-puntos__fila {
+  display: grid;
+  grid-template-columns: 1fr minmax(7rem, 42%);
+  gap: 12px;
+  align-items: center;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.tabla-puntos__fila:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.tabla-puntos__fila:first-child {
+  padding-top: 0;
+}
+
+.tabla-puntos dt {
+  font-size: 0.95rem;
+  color: var(--color-texto);
+}
+
+.tabla-puntos dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-primario);
+  line-height: 1.3;
+}
+
+.accion-centrada {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--espacio-4);
+  animation: aparecer-arriba 0.55s ease 0.12s both;
 }
 
 /* ——— Pie ——— */

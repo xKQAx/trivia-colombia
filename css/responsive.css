@@ -46,6 +46,15 @@
   .tarjeta-ejemplo {
     width: min(280px, 70%);
   }
+
+  /* Instrucciones: 1 columna en tableta (como M4) */
+  .tarjetas-info {
+    grid-template-columns: 1fr;
+  }
+
+  .tarjeta-info {
+    min-height: 0;
+  }
 }
 
 /* Móvil: layout M1 Inicio (375px de referencia) */
@@ -165,6 +174,68 @@
     min-height: 56px;
     font-size: 0.95rem;
     padding-inline: 12px;
+  }
+
+  /* Instrucciones M4 */
+  .pantalla-instrucciones {
+    padding-top: var(--espacio-3);
+  }
+
+  .pagina-cabecera {
+    margin-block: var(--espacio-1) var(--espacio-2);
+    max-width: none;
+  }
+
+  .pagina-cabecera__titulo {
+    font-size: clamp(1.85rem, 8vw, 2.25rem);
+  }
+
+  .tarjeta-info {
+    padding: 24px;
+    gap: var(--espacio-2);
+  }
+
+  .tarjeta-info__icono {
+    width: 44px;
+    height: 44px;
+  }
+
+  .tarjeta-info__titulo {
+    font-size: 1.35rem;
+  }
+
+  .lista-pasos {
+    gap: 14px;
+  }
+
+  .comodin-fila {
+    min-height: 72px;
+    padding: 12px;
+  }
+
+  .comodin-fila__badge {
+    width: 48px;
+    height: 48px;
+  }
+
+  .tabla-puntos__fila {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding-block: 12px;
+  }
+
+  .tabla-puntos dd {
+    text-align: left;
+  }
+
+  .accion-centrada {
+    margin-top: var(--espacio-3);
+  }
+
+  .accion-centrada .boton--auto {
+    width: 100%;
+    min-width: 0;
+    min-height: 58px;
   }
 
   .pie {
