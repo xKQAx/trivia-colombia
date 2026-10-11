@@ -987,18 +987,37 @@ main {
 }
 
 .temporizador {
+  --progreso: 1;
   display: grid;
   place-items: center;
   width: 96px;
   height: 96px;
   border-radius: 50%;
-  border: 5px solid var(--color-primario);
-  background-color: var(--color-tarjeta);
+  border: 5px solid transparent;
+  background:
+    linear-gradient(var(--color-tarjeta), var(--color-tarjeta)) padding-box,
+    conic-gradient(
+      var(--color-primario) calc(var(--progreso) * 360deg),
+      var(--color-borde) 0
+    ) border-box;
   box-shadow: 0 8px 24px var(--color-sombra);
 }
 
+.temporizador--urgente {
+  color: var(--color-error);
+  background:
+    linear-gradient(var(--color-tarjeta), var(--color-tarjeta)) padding-box,
+    conic-gradient(
+      var(--color-error) calc(var(--progreso) * 360deg),
+      var(--color-borde) 0
+    ) border-box;
+}
+
 .temporizador--agotado {
-  border-color: var(--color-error);
+  color: var(--color-error);
+  background:
+    linear-gradient(var(--color-tarjeta), var(--color-tarjeta)) padding-box,
+    conic-gradient(var(--color-error) 0deg, var(--color-borde) 0) border-box;
 }
 
 .temporizador__valor {
@@ -1126,6 +1145,33 @@ button.opcion:active {
 
 .opcion--neutral {
   opacity: 0.72;
+}
+
+.opcion--oculta {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.opcion[aria-disabled="true"] {
+  cursor: default;
+  pointer-events: none;
+}
+
+.campo__error {
+  margin-top: 6px;
+  color: var(--color-error);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.ranking-vacio {
+  margin-top: var(--espacio-2);
+  padding: var(--espacio-3);
+  text-align: center;
+  color: var(--color-texto-suave);
+  border-radius: var(--radio-lg);
+  border: 1.5px dashed var(--color-borde);
+  background-color: var(--color-tarjeta);
 }
 
 .comodines-acciones {
