@@ -563,5 +563,278 @@ export const PREGUNTAS = [
     opciones: ['Rafael Núñez', 'Tomás Cipriano de Mosquera', 'Alfonso López', 'Carlos Lleras'],
     correcta: 0,
     explicacion: 'Rafael Núñez impulsó la Regeneración y la Constitución de 1886.'
+  },
+  // --- Cultura: fácil ---
+  {
+    id: 61,
+    categoria: 'cultura',
+    dificultad: 'facil',
+    enunciado: '¿Cuál es el baile típico más representativo de la región Caribe colombiana?',
+    opciones: ['Bambuco', 'Joropo', 'Cumbia', 'Pasillo'],
+    correcta: 2,
+    explicacion: 'La cumbia es uno de los ritmos y bailes emblemáticos del Caribe colombiano.'
+  },
+  {
+    id: 62,
+    categoria: 'cultura',
+    dificultad: 'facil',
+    enunciado: '¿Qué escritor colombiano recibió el Premio Nobel de Literatura?',
+    opciones: ['Gabriel García Márquez', 'Álvaro Mutis', 'Fernando Vallejo', 'Rafael Pombo'],
+    correcta: 0,
+    explicacion: 'Gabriel García Márquez obtuvo el Nobel de Literatura en 1982.'
+  },
+  {
+    id: 63,
+    categoria: 'cultura',
+    dificultad: 'facil',
+    enunciado: '¿Qué arepa se asocia tradicionalmente con la costa Caribe?',
+    opciones: ['Arepa de chócolo', 'Arepa boyacense', 'Arepa de mote', 'Arepa de huevo'],
+    correcta: 3,
+    explicacion: 'La arepa de huevo es un típico frito de la cocina costeña colombiana.'
+  },
+  {
+    id: 64,
+    categoria: 'cultura',
+    dificultad: 'facil',
+    enunciado: '¿Qué sombrero típico es símbolo cultural de Colombia?',
+    opciones: ['Sombrero charro', 'Sombrero vueltiao', 'Boina vasca', 'Panamá clásico'],
+    correcta: 1,
+    explicacion: 'El sombrero vueltiao, de origen zenú, es un símbolo cultural nacional.'
+  },
+  {
+    id: 65,
+    categoria: 'cultura',
+    dificultad: 'facil',
+    enunciado: '¿Qué ritmo llanero es típico de la Orinoquía colombiana?',
+    opciones: ['Vallenato', 'Bambuco', 'Currulao', 'Joropo'],
+    correcta: 3,
+    explicacion: 'El joropo es el baile y la música característicos de los Llanos.'
+  },
+  {
+    id: 66,
+    categoria: 'cultura',
+    dificultad: 'facil',
+    enunciado: '¿Cuál es el plato típico antioqueño con frijoles, arroz y carne?',
+    opciones: ['Ajiaco', 'Bandeja paisa', 'Sancocho', 'Lechona'],
+    correcta: 1,
+    explicacion: 'La bandeja paisa es el plato más representativo de la cocina antioqueña.'
+  },
+  {
+    id: 67,
+    categoria: 'cultura',
+    dificultad: 'facil',
+    enunciado: '¿Qué instrumento de percusión es esencial en el vallenato?',
+    opciones: ['Tambora', 'Marimba', 'Caja vallenata', 'Bongó'],
+    correcta: 2,
+    explicacion: 'La caja, junto al acordeón y la guacharaca, define el vallenato.'
+  },
+  {
+    id: 68,
+    categoria: 'cultura',
+    dificultad: 'facil',
+    enunciado: '¿Qué novela famosa escribió Gabriel García Márquez?',
+    opciones: ['Cien años de soledad', 'La vorágine', 'María', 'La tejedora de coronas'],
+    correcta: 0,
+    explicacion: 'Cien años de soledad es la novela más conocida de García Márquez.'
+  },
+  {
+    id: 69,
+    categoria: 'cultura',
+    dificultad: 'facil',
+    enunciado: '¿Qué carnaval de Nariño es famoso por carrozas y comparsas?',
+    opciones: ['Feria de las Flores', 'Carnaval de Negros y Blancos', 'Festival Vallenato', 'Fiesta del Mar'],
+    correcta: 1,
+    explicacion: 'El Carnaval de Negros y Blancos de Pasto es Patrimonio de la Humanidad.'
+  },
+  {
+    id: 70,
+    categoria: 'cultura',
+    dificultad: 'facil',
+    enunciado: '¿Qué personaje del folclor cafetero promociona el café colombiano?',
+    opciones: ['El Dorado', 'La Madremonte', 'El Mohán', 'Juan Valdez'],
+    correcta: 3,
+    explicacion: 'Juan Valdez es el personaje emblemático de la Federación Nacional de Cafeteros.'
+  },
+  // --- Cultura: medio ---
+  {
+    id: 71,
+    categoria: 'cultura',
+    dificultad: 'medio',
+    enunciado: '¿Qué ciudad colombiana tiene un carnaval declarado Patrimonio de la UNESCO?',
+    opciones: ['Barranquilla', 'Cali', 'Medellín', 'Manizales'],
+    correcta: 0,
+    explicacion: 'El Carnaval de Barranquilla es Patrimonio Cultural Inmaterial de la Humanidad.'
+  },
+  {
+    id: 72,
+    categoria: 'cultura',
+    dificultad: 'medio',
+    enunciado: '¿Qué pintora antioqueña es pionera del arte moderno en Colombia?',
+    opciones: ['Lucy Tejada', 'Emma Reyes', 'Débora Arango', 'Doris Salcedo'],
+    correcta: 2,
+    explicacion: 'Débora Arango es una figura pionera del arte moderno colombiano.'
+  },
+  {
+    id: 73,
+    categoria: 'cultura',
+    dificultad: 'medio',
+    enunciado: '¿Qué ritmo del Pacífico usa la marimba de chonta?',
+    opciones: ['Bambuco', 'Currulao', 'Pasillo', 'Torbellino'],
+    correcta: 1,
+    explicacion: 'El currulao es un ritmo del Pacífico asociado a la marimba de chonta.'
+  },
+  {
+    id: 74,
+    categoria: 'cultura',
+    dificultad: 'medio',
+    enunciado: '¿Qué sopa bogotana lleva pollo, papa y guascas?',
+    opciones: ['Sancocho', 'Mondongo', 'Changua', 'Ajiaco'],
+    correcta: 3,
+    explicacion: 'El ajiaco santafereño lleva pollo, papas y guascas.'
+  },
+  {
+    id: 75,
+    categoria: 'cultura',
+    dificultad: 'medio',
+    enunciado: '¿En qué ciudad se celebra la Feria de las Flores?',
+    opciones: ['Bogotá', 'Cali', 'Medellín', 'Pereira'],
+    correcta: 2,
+    explicacion: 'La Feria de las Flores es la fiesta más emblemática de Medellín.'
+  },
+  {
+    id: 76,
+    categoria: 'cultura',
+    dificultad: 'medio',
+    enunciado: '¿Qué pueblo antioqueño es famoso por sus zócalos coloridos?',
+    opciones: ['Guatapé', 'Villa de Leyva', 'Barichara', 'Salento'],
+    correcta: 0,
+    explicacion: 'Guatapé es conocido por sus zócalos adornados y el Peñol cercano.'
+  },
+  {
+    id: 77,
+    categoria: 'cultura',
+    dificultad: 'medio',
+    enunciado: '¿Qué género de la Costa Atlántica usa acordeón, caja y guacharaca?',
+    opciones: ['Cumbia', 'Porro', 'Merecumbé', 'Vallenato'],
+    correcta: 3,
+    explicacion: 'El vallenato se interpreta tradicionalmente con acordeón, caja y guacharaca.'
+  },
+  {
+    id: 78,
+    categoria: 'cultura',
+    dificultad: 'medio',
+    enunciado: '¿Quién es el artista colombiano famoso por sus figuras voluminosas?',
+    opciones: ['Alejandro Obregón', 'Fernando Botero', 'Edgar Negret', 'Luis Alberto Acuña'],
+    correcta: 1,
+    explicacion: 'Fernando Botero es conocido mundialmente por el boterismo y sus volúmenes.'
+  },
+  {
+    id: 79,
+    categoria: 'cultura',
+    dificultad: 'medio',
+    enunciado: '¿Qué baile andino es típico del interior montañoso colombiano?',
+    opciones: ['Bambuco', 'Cumbia', 'Mapalé', 'Champeta'],
+    correcta: 0,
+    explicacion: 'El bambuco es un baile tradicional de la región Andina colombiana.'
+  },
+  {
+    id: 80,
+    categoria: 'cultura',
+    dificultad: 'medio',
+    enunciado: '¿Qué gran festival de teatro se realiza periódicamente en Bogotá?',
+    opciones: ['Festival de Cannes', 'Festival de Edimburgo', 'Festival Iberoamericano de Teatro', 'Festival de Aviñón'],
+    correcta: 2,
+    explicacion: 'El Festival Iberoamericano de Teatro de Bogotá es un evento cultural mayor.'
+  },
+  // --- Cultura: difícil ---
+  {
+    id: 81,
+    categoria: 'cultura',
+    dificultad: 'dificil',
+    enunciado: '¿Qué poeta modernista escribió Nocturno III?',
+    opciones: ['Rafael Pombo', 'Porfirio Barba Jacob', 'Guillermo Valencia', 'José Asunción Silva'],
+    correcta: 3,
+    explicacion: 'José Asunción Silva es autor del célebre Nocturno III.'
+  },
+  {
+    id: 82,
+    categoria: 'cultura',
+    dificultad: 'dificil',
+    enunciado: '¿Qué técnica artesanal nariñense usa resina vegetal sobre madera?',
+    opciones: ['Tejido zenú', 'Barniz de Pasto', 'Sombrero aguadeño', 'Cerámica de Ráquira'],
+    correcta: 1,
+    explicacion: 'El barniz de Pasto es una técnica artesanal reconocida del sur de Colombia.'
+  },
+  {
+    id: 83,
+    categoria: 'cultura',
+    dificultad: 'dificil',
+    enunciado: '¿Qué acordeonero es figura clásica del vallenato del siglo XX?',
+    opciones: ['Alejo Durán', 'Carlos Vives', 'Juanes', 'Shakira'],
+    correcta: 0,
+    explicacion: 'Alejo Durán es una de las grandes figuras clásicas del vallenato.'
+  },
+  {
+    id: 84,
+    categoria: 'cultura',
+    dificultad: 'dificil',
+    enunciado: '¿En qué municipio del Magdalena se ubica la leyenda del Hombre Caimán?',
+    opciones: ['Santa Marta', 'Ciénaga', 'Plato', 'El Banco'],
+    correcta: 2,
+    explicacion: 'La leyenda del Hombre Caimán se asocia al municipio de Plato.'
+  },
+  {
+    id: 85,
+    categoria: 'cultura',
+    dificultad: 'dificil',
+    enunciado: '¿Qué obra de Jorge Isaacs es un clásico del romanticismo colombiano?',
+    opciones: ['La vorágine', 'María', 'El carnero', 'Manuela'],
+    correcta: 1,
+    explicacion: 'María, de Jorge Isaacs, es un clásico del romanticismo en Colombia.'
+  },
+  {
+    id: 86,
+    categoria: 'cultura',
+    dificultad: 'dificil',
+    enunciado: '¿Qué pueblo indígena es conocido por sus mochilas tejidas coloridas?',
+    opciones: ['Embera', 'Nasa', 'Ticuna', 'Wayuu'],
+    correcta: 3,
+    explicacion: 'El pueblo wayuu es reconocido por sus mochilas tejidas a mano.'
+  },
+  {
+    id: 87,
+    categoria: 'cultura',
+    dificultad: 'dificil',
+    enunciado: '¿Qué ritmo afrocaribeño de la Costa se baila con gran energía?',
+    opciones: ['Pasillo', 'Bambuco', 'Mapalé', 'Torbellino'],
+    correcta: 2,
+    explicacion: 'El mapalé es un ritmo y baile afrocaribeño de la Costa Caribe.'
+  },
+  {
+    id: 88,
+    categoria: 'cultura',
+    dificultad: 'dificil',
+    enunciado: '¿Qué escritor escribió La vorágine, novela de la selva?',
+    opciones: ['José Eustasio Rivera', 'Germán Espinosa', 'León de Greiff', 'Tomás Carrasquilla'],
+    correcta: 0,
+    explicacion: 'José Eustasio Rivera es el autor de La vorágine.'
+  },
+  {
+    id: 89,
+    categoria: 'cultura',
+    dificultad: 'dificil',
+    enunciado: '¿Qué ciudad es sede del Festival de la Leyenda Vallenata?',
+    opciones: ['Santa Marta', 'Riohacha', 'Sincelejo', 'Valledupar'],
+    correcta: 3,
+    explicacion: 'El Festival de la Leyenda Vallenata se celebra en Valledupar.'
+  },
+  {
+    id: 90,
+    categoria: 'cultura',
+    dificultad: 'dificil',
+    enunciado: '¿Qué técnica orfebre es típica de Santa Cruz de Mompox?',
+    opciones: ['Talla en piedra', 'Filigrana en plata', 'Cerámica negra', 'Orfebrería en platino'],
+    correcta: 1,
+    explicacion: 'Mompox es famosa por su filigrana en plata de tradición colonial.'
   }
 ];
