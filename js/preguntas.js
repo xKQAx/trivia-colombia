@@ -290,5 +290,278 @@ export const PREGUNTAS = [
     opciones: ['Mocoa', 'Puerto Asís', 'Sibundoy', 'Orito'],
     correcta: 0,
     explicacion: 'Mocoa es la capital del departamento de Putumayo.'
+  },
+  // --- Historia: fácil ---
+  {
+    id: 31,
+    categoria: 'historia',
+    dificultad: 'facil',
+    enunciado: '¿En qué año se firmó el Acta de Independencia de Colombia?',
+    opciones: ['1810', '1819', '1821', '1830'],
+    correcta: 0,
+    explicacion: 'El 20 de julio de 1810 se firmó el Acta de Independencia en Bogotá.'
+  },
+  {
+    id: 32,
+    categoria: 'historia',
+    dificultad: 'facil',
+    enunciado: '¿Quién es conocido como el Libertador de América?',
+    opciones: ['Francisco de Paula Santander', 'Antonio Nariño', 'Simón Bolívar', 'José María Córdoba'],
+    correcta: 2,
+    explicacion: 'Simón Bolívar lideró campañas independentistas en varios países andinos.'
+  },
+  {
+    id: 33,
+    categoria: 'historia',
+    dificultad: 'facil',
+    enunciado: '¿Qué batalla consolidó la independencia de la Nueva Granada en 1819?',
+    opciones: ['Batalla de Carabobo', 'Batalla de Boyacá', 'Batalla de Ayacucho', 'Batalla del Pantano'],
+    correcta: 1,
+    explicacion: 'La batalla de Boyacá, el 7 de agosto de 1819, fue decisiva para la independencia.'
+  },
+  {
+    id: 34,
+    categoria: 'historia',
+    dificultad: 'facil',
+    enunciado: '¿Quién es llamado el Hombre de las Leyes en Colombia?',
+    opciones: ['Simón Bolívar', 'Camilo Torres', 'Antonio Nariño', 'Francisco de Paula Santander'],
+    correcta: 3,
+    explicacion: 'Francisco de Paula Santander es recordado como el Hombre de las Leyes.'
+  },
+  {
+    id: 35,
+    categoria: 'historia',
+    dificultad: 'facil',
+    enunciado: '¿Qué ciudad fue sede del Grito de Independencia del 20 de julio?',
+    opciones: ['Cartagena', 'Santa Fe de Bogotá', 'Tunja', 'Cartago'],
+    correcta: 1,
+    explicacion: 'Los hechos del 20 de julio de 1810 ocurrieron en Santa Fe de Bogotá.'
+  },
+  {
+    id: 36,
+    categoria: 'historia',
+    dificultad: 'facil',
+    enunciado: '¿Qué país europeo colonizó el territorio de la actual Colombia?',
+    opciones: ['Portugal', 'Francia', 'Inglaterra', 'España'],
+    correcta: 3,
+    explicacion: 'España colonizó gran parte del territorio que hoy es Colombia.'
+  },
+  {
+    id: 37,
+    categoria: 'historia',
+    dificultad: 'facil',
+    enunciado: '¿Cómo se llamó la república fundada tras la campaña de 1819?',
+    opciones: ['Gran Colombia', 'Nueva Granada', 'República de Colombia', 'Virreinato'],
+    correcta: 0,
+    explicacion: 'Tras 1819 se consolidó la Gran Colombia, que unía varios territorios.'
+  },
+  {
+    id: 38,
+    categoria: 'historia',
+    dificultad: 'facil',
+    enunciado: '¿Quién tradujo al español los Derechos del Hombre y del Ciudadano?',
+    opciones: ['Bolívar', 'Santander', 'Antonio Nariño', 'Policarpa Salavarrieta'],
+    correcta: 2,
+    explicacion: 'Antonio Nariño tradujo y difundió los Derechos del Hombre en la Nueva Granada.'
+  },
+  {
+    id: 39,
+    categoria: 'historia',
+    dificultad: 'facil',
+    enunciado: '¿Qué heroína independentista es conocida como La Pola?',
+    opciones: ['Manuelita Sáenz', 'Antonia Santos', 'Josefa Acevedo', 'Policarpa Salavarrieta'],
+    correcta: 3,
+    explicacion: 'Policarpa Salavarrieta, La Pola, fue una espía y mártir de la independencia.'
+  },
+  {
+    id: 40,
+    categoria: 'historia',
+    dificultad: 'facil',
+    enunciado: '¿En qué siglo ocurrieron los primeros viajes de Colón al Caribe?',
+    opciones: ['Siglo XIV', 'Siglo XV', 'Siglo XVI', 'Siglo XVII'],
+    correcta: 1,
+    explicacion: 'Los viajes de Colón al Caribe ocurrieron a finales del siglo XV.'
+  },
+  // --- Historia: medio ---
+  {
+    id: 41,
+    categoria: 'historia',
+    dificultad: 'medio',
+    enunciado: '¿En qué año se disolvió la Gran Colombia?',
+    opciones: ['1819', '1821', '1830', '1886'],
+    correcta: 2,
+    explicacion: 'La Gran Colombia se disolvió en 1830 tras crisis políticas internas.'
+  },
+  {
+    id: 42,
+    categoria: 'historia',
+    dificultad: 'medio',
+    enunciado: '¿Qué constitución adoptó Colombia en 1991?',
+    opciones: ['Constitución de 1886', 'Constitución de 1863', 'Acta de 1810', 'Constitución de 1991'],
+    correcta: 3,
+    explicacion: 'La Constitución Política de 1991 es la carta magna vigente en Colombia.'
+  },
+  {
+    id: 43,
+    categoria: 'historia',
+    dificultad: 'medio',
+    enunciado: '¿Quién lideró la Campaña Libertadora desde los Llanos en 1819?',
+    opciones: ['Simón Bolívar', 'Antonio José de Sucre', 'José Antonio Páez', 'Francisco Miranda'],
+    correcta: 0,
+    explicacion: 'Simón Bolívar cruzó los Andes desde los Llanos en la campaña de 1819.'
+  },
+  {
+    id: 44,
+    categoria: 'historia',
+    dificultad: 'medio',
+    enunciado: '¿Qué nombre recibió el país entre 1831 y 1858 aproximadamente?',
+    opciones: ['Gran Colombia', 'Estados Unidos de Colombia', 'República de Nueva Granada', 'Virreinato'],
+    correcta: 2,
+    explicacion: 'Tras la disolución de la Gran Colombia surgió la República de Nueva Granada.'
+  },
+  {
+    id: 45,
+    categoria: 'historia',
+    dificultad: 'medio',
+    enunciado: '¿En qué ciudad se promulgó la Constitución de 1886?',
+    opciones: ['Medellín', 'Bogotá', 'Cartagena', 'Cali'],
+    correcta: 1,
+    explicacion: 'La Constitución de 1886 fue promulgada en Bogotá y rigió por un siglo.'
+  },
+  {
+    id: 46,
+    categoria: 'historia',
+    dificultad: 'medio',
+    enunciado: '¿Qué conflicto civil de inicios del siglo XX enfrentó a liberales y conservadores?',
+    opciones: ['Guerra de los Mil Días', 'Guerra Civil Española', 'Guerra del Pacífico', 'Guerra de Secesión'],
+    correcta: 0,
+    explicacion: 'La Guerra de los Mil Días (1899-1902) fue un conflicto entre partidos tradicionales.'
+  },
+  {
+    id: 47,
+    categoria: 'historia',
+    dificultad: 'medio',
+    enunciado: '¿En qué año se separó Panamá de Colombia?',
+    opciones: ['1899', '1910', '1903', '1921'],
+    correcta: 2,
+    explicacion: 'Panamá se separó de Colombia en 1903.'
+  },
+  {
+    id: 48,
+    categoria: 'historia',
+    dificultad: 'medio',
+    enunciado: '¿Quién fue el primer presidente de la Gran Colombia?',
+    opciones: ['Santander', 'Nariño', 'Sucre', 'Simón Bolívar'],
+    correcta: 3,
+    explicacion: 'Simón Bolívar fue el primer presidente de la Gran Colombia.'
+  },
+  {
+    id: 49,
+    categoria: 'historia',
+    dificultad: 'medio',
+    enunciado: '¿Qué hecho del 9 de abril de 1948 desencadenó El Bogotazo?',
+    opciones: ['El asesinato de Gaitán', 'La toma de Cartagena', 'La batalla de Boyacá', 'La separación de Panamá'],
+    correcta: 0,
+    explicacion: 'El asesinato de Jorge Eliécer Gaitán el 9 de abril de 1948 originó El Bogotazo.'
+  },
+  {
+    id: 50,
+    categoria: 'historia',
+    dificultad: 'medio',
+    enunciado: '¿Qué cultura prehispánica construyó Ciudad Perdida en la Sierra Nevada?',
+    opciones: ['Muisca', 'Tayrona', 'Quimbaya', 'Zenú'],
+    correcta: 1,
+    explicacion: 'Ciudad Perdida (Teyuna) fue construida por la cultura tayrona.'
+  },
+  // --- Historia: difícil ---
+  {
+    id: 51,
+    categoria: 'historia',
+    dificultad: 'dificil',
+    enunciado: '¿En qué año se creó el Virreinato de la Nueva Granada?',
+    opciones: ['1492', '1810', '1717', '1830'],
+    correcta: 2,
+    explicacion: 'El Virreinato de la Nueva Granada se estableció en 1717.'
+  },
+  {
+    id: 52,
+    categoria: 'historia',
+    dificultad: 'dificil',
+    enunciado: '¿Qué tratado de 1928 trató la soberanía sobre San Andrés con Nicaragua?',
+    opciones: ['Tratado Esguerra-Bárcenas', 'Tratado de Tordesillas', 'Pacto de Bogotá', 'Tratado de Guadalupe'],
+    correcta: 0,
+    explicacion: 'El tratado Esguerra-Bárcenas de 1928 abordó la soberanía sobre San Andrés.'
+  },
+  {
+    id: 53,
+    categoria: 'historia',
+    dificultad: 'dificil',
+    enunciado: '¿En qué año se adoptó la Constitución que rigió hasta 1991?',
+    opciones: ['1810', '1863', '1830', '1886'],
+    correcta: 3,
+    explicacion: 'La Constitución de 1886 rigió hasta la Asamblea Constituyente de 1991.'
+  },
+  {
+    id: 54,
+    categoria: 'historia',
+    dificultad: 'dificil',
+    enunciado: '¿En qué villa se inició la Revolución de los Comuneros en 1781?',
+    opciones: ['Tunja', 'El Socorro', 'Zipaquirá', 'Cartagena'],
+    correcta: 1,
+    explicacion: 'La Revolución de los Comuneros comenzó en la villa del Socorro.'
+  },
+  {
+    id: 55,
+    categoria: 'historia',
+    dificultad: 'dificil',
+    enunciado: '¿Qué batalla de 1819 abrió el paso hacia Santa Fe tras el páramo?',
+    opciones: ['Batalla de Ayacucho', 'Batalla de Carabobo', 'Batalla de Junín', 'Batalla del Pantano de Vargas'],
+    correcta: 3,
+    explicacion: 'La batalla del Pantano de Vargas (1819) precedió a la de Boyacá.'
+  },
+  {
+    id: 56,
+    categoria: 'historia',
+    dificultad: 'dificil',
+    enunciado: '¿En qué año se reunió el Congreso de Cúcuta?',
+    opciones: ['1819', '1821', '1830', '1810'],
+    correcta: 1,
+    explicacion: 'El Congreso de Cúcuta de 1821 organizó constitucionalmente la Gran Colombia.'
+  },
+  {
+    id: 57,
+    categoria: 'historia',
+    dificultad: 'dificil',
+    enunciado: '¿Quién fue una figura central de la Revolución de los Comuneros en 1781?',
+    opciones: ['Antonio Nariño', 'Simón Bolívar', 'José Antonio Galán', 'Camilo Torres'],
+    correcta: 2,
+    explicacion: 'José Antonio Galán fue una figura central de la Revolución de los Comuneros.'
+  },
+  {
+    id: 58,
+    categoria: 'historia',
+    dificultad: 'dificil',
+    enunciado: '¿Qué nombre tuvo Colombia entre 1863 y 1886?',
+    opciones: ['Gran Colombia', 'Nueva Granada', 'Virreinato', 'Estados Unidos de Colombia'],
+    correcta: 3,
+    explicacion: 'Entre 1863 y 1886 el país se llamó Estados Unidos de Colombia.'
+  },
+  {
+    id: 59,
+    categoria: 'historia',
+    dificultad: 'dificil',
+    enunciado: '¿En qué siglo se abrió el Canal del Dique hacia el Magdalena?',
+    opciones: ['Siglo XVI', 'Siglo XVII', 'Siglo XIX', 'Siglo XX'],
+    correcta: 1,
+    explicacion: 'El Canal del Dique se abrió en el siglo XVII para comunicar Cartagena con el Magdalena.'
+  },
+  {
+    id: 60,
+    categoria: 'historia',
+    dificultad: 'dificil',
+    enunciado: '¿Qué presidente impulsó la Regeneración a finales del siglo XIX?',
+    opciones: ['Rafael Núñez', 'Tomás Cipriano de Mosquera', 'Alfonso López', 'Carlos Lleras'],
+    correcta: 0,
+    explicacion: 'Rafael Núñez impulsó la Regeneración y la Constitución de 1886.'
   }
 ];
