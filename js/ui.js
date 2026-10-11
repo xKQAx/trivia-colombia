@@ -679,9 +679,16 @@ export function renderizarRanking(ranking, entradaActual, resumenStats) {
     });
   }
 
-  tabla.querySelectorAll('[data-ejemplo]').forEach((el) => el.remove());
-  if (cabeza && !tabla.contains(cabeza)) tabla.prepend(cabeza);
+  // Conservar molde oculto para re-renderizados posteriores
+  if (molde) {
+    const guardada = /** @type {HTMLElement} */ (molde.cloneNode(true));
+    guardada.setAttribute('data-ejemplo', 'fila-ranking');
+    guardada.hidden = true;
+    guardada.classList.remove('tabla-ranking__fila--tu', 'tabla-ranking__fila--podio');
+    tabla.appendChild(guardada);
+  }
 
+  if (cabeza && !tabla.contains(cabeza)) tabla.prepend(cabeza);
   renderizarEstadisticas(resumenStats);
 }
 
@@ -708,7 +715,10 @@ export function aplicarTema(tema) {
   else raiz.removeAttribute('data-tema');
 
   const boton = document.getElementById('btn-tema');
-  if (boton) boton.setAttribute('aria-pressed', String(tema === 'oscuro'));
+  if (boton) {
+    boton.setAttribute('aria-pressed', String(tema === 'oscuro'));
+    boton.title = tema === 'oscuro' ? 'Tema oscuro' : 'Tema claro';
+  }
 }
 
 /**
@@ -716,7 +726,10 @@ export function aplicarTema(tema) {
  */
 export function aplicarSonido(activo) {
   const boton = document.getElementById('btn-sonido');
-  if (boton) boton.setAttribute('aria-pressed', String(activo));
+  if (boton) {
+    boton.setAttribute('aria-pressed', String(activo));
+    boton.title = activo ? 'Sonido activado' : 'Sonido silenciado';
+  }
 }
 
 export function nombreCategoria(clave) {
