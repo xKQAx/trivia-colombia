@@ -357,35 +357,37 @@ function temaPorSistema() {
 }
 
 /**
- * @returns {{ sonido: boolean, tema: 'claro'|'oscuro', ultimoNombre: string }}
+ * @returns {{ sonido: boolean, musica: boolean, tema: 'claro'|'oscuro', ultimoNombre: string }}
  */
 export function cargarPreferencias() {
   if (memoria.preferencias) return { ...memoria.preferencias };
 
   const crudo = leer(CLAVE_PREFS);
   if (!crudo) {
-    return { sonido: true, tema: temaPorSistema(), ultimoNombre: '' };
+    return { sonido: true, musica: true, tema: temaPorSistema(), ultimoNombre: '' };
   }
 
   try {
     const parsed = JSON.parse(crudo);
     return {
       sonido: parsed.sonido !== false,
+      musica: parsed.musica !== false,
       tema: parsed.tema === 'oscuro' ? 'oscuro' : 'claro',
       ultimoNombre: typeof parsed.ultimoNombre === 'string' ? parsed.ultimoNombre : ''
     };
   } catch {
-    return { sonido: true, tema: temaPorSistema(), ultimoNombre: '' };
+    return { sonido: true, musica: true, tema: temaPorSistema(), ultimoNombre: '' };
   }
 }
 
 /**
- * @param {Partial<{ sonido: boolean, tema: string, ultimoNombre: string }>} prefs
+ * @param {Partial<{ sonido: boolean, musica: boolean, tema: string, ultimoNombre: string }>} prefs
  */
 export function guardarPreferencias(prefs) {
   const actuales = cargarPreferencias();
   const mezcladas = {
     sonido: typeof prefs.sonido === 'boolean' ? prefs.sonido : actuales.sonido,
+    musica: typeof prefs.musica === 'boolean' ? prefs.musica : actuales.musica,
     tema: prefs.tema === 'oscuro' || prefs.tema === 'claro' ? prefs.tema : actuales.tema,
     ultimoNombre:
       typeof prefs.ultimoNombre === 'string' ? prefs.ultimoNombre : actuales.ultimoNombre

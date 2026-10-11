@@ -1,0 +1,16 @@
+Sonidos de Trivia Colombia
+==========================
+
+No hay archivos de audio en este proyecto.
+
+Todos los efectos (acierto, error, fin de partida, clic, tic del temporizador)
+y la música de fondo se generan en tiempo real con la Web Audio API en:
+
+  js/audio.js
+
+La música usa un tempo de 96 BPM en compás 4/4, escala pentatónica de La menor,
+bajo en progresión Am–G–F–E con timbre triangle (aire de cumbia), arpegios de
+melodía, y percusión improvisada (tambor + “guacharaca” con ruido filtrado).
+
+Si el navegador no soporta Web Audio, los botones de sonido/música se ocultan
+y el juego sigue funcionando en silencio.

@@ -1,6 +1,6 @@
 /**
  * app.js — Entrada, navegación y coordinación.
- * Conecta juego (reglas), ui (DOM) y almacenamiento (persistencia).
+ * Conecta juego (reglas), ui (DOM), almacenamiento y audio.
  */
 
 import {
@@ -28,6 +28,7 @@ import {
 } from './almacenamiento.js';
 import * as ui from './ui.js';
 import { lanzarConfeti } from './confeti.js';
+import * as audio from './audio.js';
 
 /** Último resumen de partida (para compartir). */
 let ultimoResumen = null;
@@ -55,52 +56,6 @@ let pantallaActual = 'inicio';
 
 /** Evita dobles clics en acciones sensibles. */
 let bloqueoAccion = false;
-
-/** Web Audio: se crea tras el primer gesto del usuario. */
-let audioCtx = null;
-
-function asegurarAudio() {
-  if (!prefs.sonido) return null;
-  try {
-    const Ctx = window.AudioContext || window.webkitAudioContext;
-    if (!Ctx) return null;
-    if (!audioCtx) audioCtx = new Ctx();
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    return audioCtx;
-  } catch {
-    return null;
-  }
-}
-
-/**
- * Beep corto con oscilador (sin archivos externos).
- * @param {'acierto'|'error'|'click'|'comodin'} tipo
- */
-function reproducirSonido(tipo) {
-  const ctx = asegurarAudio();
-  if (!ctx) return;
-
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-
-  const ahora = ctx.currentTime;
-  const mapa = {
-    acierto: { freq: 660, dur: 0.12, type: 'sine' },
-    error: { freq: 180, dur: 0.18, type: 'triangle' },
-    click: { freq: 420, dur: 0.05, type: 'sine' },
-    comodin: { freq: 520, dur: 0.1, type: 'square' }
-  };
-  const cfg = mapa[tipo] ?? mapa.click;
-  osc.type = cfg.type;
-  osc.frequency.setValueAtTime(cfg.freq, ahora);
-  gain.gain.setValueAtTime(0.0001, ahora);
-  gain.gain.exponentialRampToValueAtTime(0.08, ahora + 0.01);
-  gain.gain.exponentialRampToValueAtTime(0.0001, ahora + cfg.dur);
-  osc.start(ahora);
-  osc.stop(ahora + cfg.dur + 0.02);
-}
 
 function validarNombre(raw) {
   const nombre = String(raw ?? '').trim();
@@ -148,6 +103,7 @@ function sincronizarHistorial(destino, opts = {}) {
 function abandonarPartida() {
   detenerTemporizador();
   partidaActiva = false;
+  audio.setEnPartida(false);
   estado.preguntas = [];
   estado.respondida = false;
   estado.historial = [];
@@ -166,7 +122,6 @@ async function irA(destino, opts = {}) {
     hayResultado
   });
 
-  // Si pedían juego/resultado inválidos, redirigir al fallback
   if (resuelto !== destino && (destino === 'juego' || destino === 'resultado')) {
     return irA(resuelto, { reemplazar: true });
   }
@@ -180,7 +135,6 @@ async function irA(destino, opts = {}) {
   if (dejandoPartida) {
     const confirmar = await ui.confirmarSalirPartida();
     if (!confirmar) {
-      // Seguir jugando: mantener / restaurar #juego en el historial
       if (desdeHistorial || location.hash !== '#juego') {
         history.pushState({ pantalla: 'juego' }, '', '#juego');
       }
@@ -201,7 +155,6 @@ async function irA(destino, opts = {}) {
     refrescarMejorEnConfig();
   }
 
-  // Retroalimentación comparte hash #juego
   const hashPantalla = destino === 'retroalimentacion' ? 'juego' : destino;
   pantallaActual = destino;
   if (!desdeHistorial) {
@@ -215,6 +168,7 @@ async function irA(destino, opts = {}) {
 
 function alTick(segundos) {
   ui.actualizarTemporizador(segundos, estado.tiempoMaxPregunta);
+  audio.ticTemporizador(segundos);
 }
 
 function alAgotar() {
@@ -240,10 +194,7 @@ function mostrarPreguntaActual() {
 }
 
 /**
- * @param {object|null} resultado
- */
-/**
- * Vibración corta si hay API y efectos (sonido) activos.
+ * Vibración corta si hay API y efectos activos.
  * @param {number} ms
  */
 function vibrar(ms) {
@@ -257,6 +208,9 @@ function vibrar(ms) {
   }
 }
 
+/**
+ * @param {object|null} resultado
+ */
 function finalizarRespuesta(resultado) {
   if (!resultado) return;
 
@@ -264,7 +218,7 @@ function finalizarRespuesta(resultado) {
   ui.actualizarMarcador(estado.puntaje, estado.racha);
   ui.actualizarComodines(estado.comodines, true);
 
-  reproducirSonido(resultado.correcta ? 'acierto' : 'error');
+  audio.reproducirEfecto(resultado.correcta ? 'acierto' : 'error');
   vibrar(resultado.correcta ? 40 : 120);
 
   const pregunta = obtenerPreguntaActual();
@@ -288,7 +242,6 @@ function finalizarRespuesta(resultado) {
     estado.tiempoRestante
   );
   pantallaActual = 'retroalimentacion';
-  // Mantener hash #juego durante la retroalimentación
   if (location.hash !== '#juego') {
     history.replaceState({ pantalla: 'juego' }, '', '#juego');
   }
@@ -309,12 +262,12 @@ function comenzarPartida() {
   iniciarPartida(check.nombre, config.categoria, config.dificultad);
   partidaActiva = true;
   hayResultado = false;
+  audio.setEnPartida(true);
   mostrarPreguntaActual();
 }
 
 function terminarPartida() {
   const resumen = obtenerResumen();
-  // Comparar récord ANTES de guardar / actualizar stats
   const mejorPrevio = obtenerMejorPuntaje(
     resumen.nombre,
     resumen.categoria,
@@ -347,12 +300,13 @@ function terminarPartida() {
 
   partidaActiva = false;
   hayResultado = true;
+  audio.setEnPartida(false);
+  audio.reproducirEfecto('fin');
   ultimoResumen = resumen;
   ui.mostrarResultado(resumen, posicion, { nuevoRecord });
   pantallaActual = 'resultado';
   sincronizarHistorial('resultado');
 
-  // Confeti: ≥7 aciertos o top 3 del ranking
   if (resumen.aciertos >= 7 || (posicion != null && posicion <= 3)) {
     lanzarConfeti();
   }
@@ -367,7 +321,6 @@ async function onCompartir() {
       return;
     }
   } catch (err) {
-    // Cancelar share no es error: AbortError / rechazo del usuario
     if (err && /** @type {{ name?: string }} */ (err).name === 'AbortError') return;
   }
 
@@ -381,7 +334,6 @@ async function onCompartir() {
     /* clipboard bloqueado */
   }
 
-  // Fallback mínimo sin romper flujo
   ui.anunciarCompartir('No se pudo compartir');
 }
 
@@ -391,6 +343,7 @@ async function onSiguiente() {
   const btn = document.getElementById('btn-siguiente');
   if (btn) btn.disabled = true;
   try {
+    audio.reproducirEfecto('click');
     const hayMas = siguientePregunta();
     if (hayMas) mostrarPreguntaActual();
     else terminarPartida();
@@ -443,7 +396,7 @@ function enlazarConfiguracion() {
       const valor = boton.getAttribute('data-categoria');
       if (!valor) return;
       config.categoria = valor;
-      reproducirSonido('click');
+      audio.reproducirEfecto('click');
       refrescarMejorEnConfig();
     });
   });
@@ -453,7 +406,7 @@ function enlazarConfiguracion() {
       const valor = boton.getAttribute('data-dificultad');
       if (!valor) return;
       config.dificultad = valor;
-      reproducirSonido('click');
+      audio.reproducirEfecto('click');
       refrescarMejorEnConfig();
     });
   });
@@ -462,6 +415,8 @@ function enlazarConfiguracion() {
 function aplicarPreferenciasIniciales() {
   ui.aplicarTema(prefs.tema);
   ui.aplicarSonido(prefs.sonido);
+  audio.aplicarBotonMusica(prefs.musica);
+  audio.sincronizarPreferencias(prefs.sonido, prefs.musica);
 
   const entrada = document.getElementById('entrada-nombre');
   if (entrada && prefs.ultimoNombre) {
@@ -494,17 +449,19 @@ async function alPopState() {
 
 function inicializar() {
   aplicarPreferenciasIniciales();
+  audio.ocultarControlesSiNoSoporta();
+  audio.enlazarVisibilidad();
 
-  // Reload siempre a inicio (ignora hash previo)
   partidaActiva = false;
   hayResultado = false;
   pantallaActual = 'inicio';
   history.replaceState({ pantalla: 'inicio' }, '', '#inicio');
   ui.mostrarPantalla('inicio');
 
-  // Primer gesto: habilita AudioContext (política del navegador)
+  // Tras la primera interacción: desbloquear AudioContext e iniciar música
   const desbloquearAudio = () => {
-    asegurarAudio();
+    audio.asegurarContexto();
+    if (prefs.musica) audio.iniciarMusica();
     document.removeEventListener('pointerdown', desbloquearAudio);
   };
   document.addEventListener('pointerdown', desbloquearAudio);
@@ -513,7 +470,6 @@ function inicializar() {
     alPopState();
   });
 
-  // Aviso al cerrar/recargar con partida en curso
   window.addEventListener('beforeunload', (evento) => {
     if (!partidaActiva) return;
     evento.preventDefault();
@@ -526,6 +482,8 @@ function inicializar() {
       evento.preventDefault();
       const destino = elemento.getAttribute('data-ir');
       if (!destino) return;
+      // Clic suave en botones principales de navegación
+      if (elemento.classList.contains('boton')) audio.reproducirEfecto('click');
       irA(destino);
     });
   });
@@ -541,6 +499,7 @@ function inicializar() {
         return;
       }
       ui.limpiarErrorNombre();
+      audio.reproducirEfecto('click');
       estado.nombre = check.nombre;
       prefs = guardarPreferencias({ ...prefs, ultimoNombre: check.nombre });
       config.categoria = 'todas';
@@ -566,7 +525,7 @@ function inicializar() {
 
   document.getElementById('btn-comenzar')?.addEventListener('click', () => {
     if (bloqueoAccion) return;
-    reproducirSonido('click');
+    audio.reproducirEfecto('click');
     comenzarPartida();
   });
 
@@ -580,7 +539,7 @@ function inicializar() {
     ui.ocultarOpciones(r.ocultar);
     ui.actualizarMarcador(estado.puntaje, estado.racha);
     ui.actualizarComodines(estado.comodines, estado.respondida);
-    reproducirSonido('comodin');
+    audio.reproducirEfecto('comodin');
   });
 
   document.getElementById('btn-tiempo-extra')?.addEventListener('click', () => {
@@ -591,7 +550,7 @@ function inicializar() {
     ui.actualizarTemporizador(estado.tiempoRestante, estado.tiempoMaxPregunta);
     ui.actualizarMarcador(estado.puntaje, estado.racha);
     ui.actualizarComodines(estado.comodines, estado.respondida);
-    reproducirSonido('comodin');
+    audio.reproducirEfecto('comodin');
   });
 
   document.getElementById('btn-siguiente')?.addEventListener('click', () => {
@@ -633,11 +592,20 @@ function inicializar() {
   document.getElementById('btn-sonido')?.addEventListener('click', () => {
     prefs = guardarPreferencias({ ...prefs, sonido: !prefs.sonido });
     ui.aplicarSonido(prefs.sonido);
-    const btnSonido = document.getElementById('btn-sonido');
-    if (btnSonido) {
-      btnSonido.title = prefs.sonido ? 'Sonido activado' : 'Sonido silenciado';
+    audio.sincronizarPreferencias(prefs.sonido, prefs.musica);
+    if (prefs.sonido) audio.reproducirEfecto('click');
+  });
+
+  document.getElementById('btn-musica')?.addEventListener('click', () => {
+    prefs = guardarPreferencias({ ...prefs, musica: !prefs.musica });
+    audio.aplicarBotonMusica(prefs.musica);
+    audio.sincronizarPreferencias(prefs.sonido, prefs.musica);
+    if (prefs.musica) {
+      audio.asegurarContexto();
+      audio.iniciarMusica();
+    } else {
+      audio.detenerMusica();
     }
-    if (prefs.sonido) reproducirSonido('click');
   });
 
   document.addEventListener('keydown', onTeclado);

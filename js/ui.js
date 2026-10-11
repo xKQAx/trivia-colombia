@@ -841,13 +841,18 @@ export function aplicarTema(tema) {
 }
 
 /**
+ * Botón de efectos (no música).
  * @param {boolean} activo
  */
 export function aplicarSonido(activo) {
   const boton = document.getElementById('btn-sonido');
   if (boton) {
     boton.setAttribute('aria-pressed', String(activo));
-    boton.title = activo ? 'Sonido activado' : 'Sonido silenciado';
+    boton.setAttribute(
+      'aria-label',
+      activo ? 'Silenciar efectos de sonido' : 'Activar efectos de sonido'
+    );
+    boton.title = activo ? 'Efectos activados' : 'Efectos silenciados';
   }
 }
 
