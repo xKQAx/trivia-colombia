@@ -112,10 +112,11 @@ function abandonarPartida() {
 /**
  * Navegación central: data-ir, historial y guards de partida.
  * @param {string} destino
- * @param {{ desdeHistor?: boolean, reemplazar?: boolean, forzar?: boolean }} [opts]
+ * @param {{ desdeHistorial?: boolean, reemplazar?: boolean, forzar?: boolean }} [opts]
  */
 async function irA(destino, opts = {}) {
-  const { desdeHistor = false, reemplazar = false, forzar = false } = opts;
+  // desdeHistorial: popstate/atrás — no empujar otra entrada al historial
+  const { desdeHistorial = false, reemplazar = false, forzar = false } = opts;
 
   const resuelto = resolverDestinoHash(`#${destino}`, {
     hayPartida: partidaActiva,
@@ -438,13 +439,13 @@ async function alPopState() {
     }
     abandonarPartida();
     await irA(destino === 'resultado' ? 'configuracion' : destino, {
-      desdeHistor: true,
+      desdeHistorial: true,
       forzar: true
     });
     return;
   }
 
-  await irA(destino, { desdeHistor: true, forzar: true });
+  await irA(destino, { desdeHistorial: true, forzar: true });
 }
 
 function inicializar() {
