@@ -224,13 +224,6 @@ export function mostrarPregunta(pregunta, numero, total, dificultadPartida) {
   const contenedor = document.getElementById('juego-opciones');
   if (!contenedor) return;
 
-  // Plantilla data-ejemplo: clonar y luego regenerar (quitar plantilla del DOM)
-  let plantilla = contenedor.querySelector('[data-ejemplo="opcion"]');
-  if (!plantilla) plantilla = contenedor.querySelector('.opcion');
-  const moldeOpcion = plantilla
-    ? /** @type {HTMLButtonElement} */ (plantilla.cloneNode(true))
-    : null;
-
   contenedor.replaceChildren();
 
   const bloque = document.querySelector('#pantalla-juego .pregunta-bloque');
@@ -241,40 +234,19 @@ export function mostrarPregunta(pregunta, numero, total, dificultadPartida) {
   contenedor.classList.add('opciones--entrada');
 
   pregunta.opciones.forEach((texto, i) => {
-    const boton = /** @type {HTMLButtonElement} */ (
-      moldeOpcion ? moldeOpcion.cloneNode(true) : document.createElement('button')
-    );
-    boton.removeAttribute('data-ejemplo');
-    boton.removeAttribute('hidden');
-    boton.className = 'opcion';
+    const boton = document.createElement('button');
     boton.type = 'button';
+    boton.className = 'opcion';
     boton.dataset.opcion = String(i);
     boton.style.setProperty('--orden', String(i));
-    boton.removeAttribute('aria-disabled');
-    boton.removeAttribute('aria-hidden');
-    boton.disabled = false;
 
-    let letra = boton.querySelector('.opcion__letra');
-    let cuerpo = boton.querySelector('.opcion__texto');
-    if (!letra || !cuerpo) {
-      boton.replaceChildren();
-      letra = document.createElement('span');
-      letra.className = 'opcion__letra';
-      cuerpo = document.createElement('span');
-      cuerpo.className = 'opcion__texto';
-      boton.append(letra, cuerpo);
-    }
-    boton.querySelector('.opcion__marca')?.remove();
-    boton.classList.remove(
-      'opcion--oculta',
-      'opcion--correcta',
-      'opcion--incorrecta',
-      'opcion--neutral',
-      'opcion--pulso',
-      'opcion--shake'
-    );
+    const letra = document.createElement('span');
+    letra.className = 'opcion__letra';
     letra.textContent = LETRAS[i];
+    const cuerpo = document.createElement('span');
+    cuerpo.className = 'opcion__texto';
     cuerpo.textContent = texto;
+    boton.append(letra, cuerpo);
     contenedor.appendChild(boton);
   });
 
@@ -728,12 +700,6 @@ export function renderizarRanking(ranking, entradaActual, resumenStats) {
   if (!tabla) return;
 
   const cabeza = tabla.querySelector('.tabla-ranking__fila--cabeza');
-  let plantilla = tabla.querySelector('[data-ejemplo="fila-ranking"]');
-  if (!plantilla) {
-    plantilla = tabla.querySelector('.tabla-ranking__fila:not(.tabla-ranking__fila--cabeza)');
-  }
-  // Clonar antes de vaciar: el nodo plantilla vive dentro de la tabla
-  const molde = plantilla ? /** @type {HTMLElement} */ (plantilla.cloneNode(true)) : null;
 
   [...tabla.children].forEach((hijo) => {
     if (!hijo.classList.contains('tabla-ranking__fila--cabeza')) hijo.remove();
@@ -753,11 +719,7 @@ export function renderizarRanking(ranking, entradaActual, resumenStats) {
   } else {
     vacio.hidden = true;
     ranking.forEach((entrada, idx) => {
-      const fila = /** @type {HTMLElement} */ (
-        molde ? molde.cloneNode(true) : document.createElement('div')
-      );
-      fila.removeAttribute('data-ejemplo');
-      fila.hidden = false;
+      const fila = document.createElement('div');
       fila.className = 'tabla-ranking__fila';
       fila.setAttribute('role', 'row');
       if (idx < 3) fila.classList.add('tabla-ranking__fila--podio');
@@ -767,7 +729,6 @@ export function renderizarRanking(ranking, entradaActual, resumenStats) {
         entrada.nombre === entradaActual.nombre &&
         entrada.puntaje === entradaActual.puntaje &&
         entrada.fecha === entradaActual.fecha;
-      // HTML usa --tu; el prompt menciona fila-actual → se adapta a la clase real
       if (esActual) fila.classList.add('tabla-ranking__fila--tu');
 
       const pos = idx + 1;
@@ -779,7 +740,6 @@ export function renderizarRanking(ranking, entradaActual, resumenStats) {
         formatearFecha(entrada.fecha)
       ];
 
-      fila.replaceChildren();
       celdas.forEach((texto, i) => {
         const span = document.createElement('span');
         span.setAttribute('role', 'cell');
@@ -796,15 +756,6 @@ export function renderizarRanking(ranking, entradaActual, resumenStats) {
 
       tabla.appendChild(fila);
     });
-  }
-
-  // Conservar molde oculto para re-renderizados posteriores
-  if (molde) {
-    const guardada = /** @type {HTMLElement} */ (molde.cloneNode(true));
-    guardada.setAttribute('data-ejemplo', 'fila-ranking');
-    guardada.hidden = true;
-    guardada.classList.remove('tabla-ranking__fila--tu', 'tabla-ranking__fila--podio');
-    tabla.appendChild(guardada);
   }
 
   if (cabeza && !tabla.contains(cabeza)) tabla.prepend(cabeza);

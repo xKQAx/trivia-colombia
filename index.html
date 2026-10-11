@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trivia Colombia</title>
+  <meta name="description" content="Pon a prueba lo que sabes de Colombia: 10 preguntas, 5 categorías y 3 niveles. Responde contra el reloj y sube en el ranking.">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F5EDE0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1B1612">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Trivia Colombia">
+  <meta property="og:description" content="Pon a prueba lo que sabes de Colombia: 10 preguntas, 5 categorías y 3 niveles.">
+  <meta property="og:image" content="assets/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Trivia Colombia">
+  <meta name="twitter:description" content="Pon a prueba lo que sabes de Colombia: 10 preguntas, 5 categorías y 3 niveles.">
+  <meta name="twitter:image" content="assets/img/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
@@ -450,7 +462,6 @@
           </div>
 
           <div class="temporizador" id="juego-temporizador" aria-label="Tiempo restante" style="--progreso: 1">
-            <!-- id real: juego-tiempo (el prompt citaba juego-segundos) -->
             <span class="temporizador__valor" id="juego-tiempo">20</span>
           </div>
 
@@ -475,12 +486,7 @@
           <h2 class="pregunta-bloque__enunciado" id="juego-enunciado">¿Cuál es el ave nacional de Colombia?</h2>
         </article>
 
-        <div class="opciones" id="juego-opciones" role="group" aria-label="Opciones de respuesta">
-          <button type="button" class="opcion" data-opcion="0" data-ejemplo="opcion" hidden>
-            <span class="opcion__letra">A</span>
-            <span class="opcion__texto">Opción</span>
-          </button>
-        </div>
+        <div class="opciones" id="juego-opciones" role="group" aria-label="Opciones de respuesta"></div>
 
         <div class="comodines-acciones">
           <button type="button" class="boton boton--secundario boton--comodin" id="btn-5050">
@@ -497,7 +503,7 @@
       </div>
     </section>
 
-    <!-- Pantalla: Retroalimentación (Figma 3:402 / Móvil 6:122) — demo visual estática -->
+    <!-- Pantalla: Retroalimentación -->
     <section id="pantalla-retroalimentacion" class="pantalla pantalla-juego pantalla-retro" hidden aria-labelledby="titulo-retroalimentacion">
       <div class="partida">
         <div class="partida__barra">
@@ -593,7 +599,7 @@
       </div>
     </section>
 
-    <!-- Pantalla: Resultado (Figma Escritorio 3:499 / Móvil 6:213) — demo con datos de ejemplo -->
+    <!-- Pantalla: Resultado -->
     <section id="pantalla-resultado" class="pantalla pantalla-resultado" hidden aria-labelledby="titulo-resultado">
       <div class="resultado">
         <header class="pagina-cabecera pagina-cabecera--centrada">
@@ -661,7 +667,7 @@
       </div>
     </section>
 
-    <!-- Pantalla: Ranking (Figma Escritorio 3:615 / Móvil 6:316) — datos de ejemplo estáticos -->
+    <!-- Pantalla: Ranking -->
     <section id="pantalla-ranking" class="pantalla pantalla-ranking" hidden aria-labelledby="titulo-ranking">
       <button type="button" class="boton-volver" data-ir="inicio">
         <svg class="icono" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -683,13 +689,6 @@
             <span role="columnheader">Puntaje</span>
             <span role="columnheader">Categoría</span>
             <span role="columnheader">Fecha</span>
-          </div>
-          <div class="tabla-ranking__fila" data-ejemplo="fila-ranking" hidden role="row">
-            <span class="posicion" role="cell">1</span>
-            <span role="cell">Nombre</span>
-            <span class="tabla-ranking__puntaje" role="cell">0</span>
-            <span role="cell">Categoría</span>
-            <span role="cell">01/01/2026</span>
           </div>
         </div>
         <p class="ranking-vacio" id="ranking-vacio" hidden>Aún no hay puntajes. ¡Sé el primero!</p>

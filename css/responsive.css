@@ -440,7 +440,8 @@
   }
 
   .resultado-acciones .boton,
-  .resultado-acciones .boton--secundario {
+  .resultado-acciones .boton--secundario,
+  .resultado-acciones .boton--contorno {
     width: 100%;
     min-width: 0;
   }

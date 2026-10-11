@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Trivia Colombia">
+  <rect width="32" height="32" rx="8" fill="#E3A72F"/>
+  <path d="M4 24L12.5 11.5L17 18L20.5 13.5L28 24H4Z" fill="none" stroke="#3A281D" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="20.5" cy="11" r="1.6" fill="#3A281D"/>
+</svg>

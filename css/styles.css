@@ -129,11 +129,6 @@ main {
   display: none !important;
 }
 
-.pantalla__aviso {
-  margin: var(--espacio-2) 0 var(--espacio-3);
-  color: var(--color-texto-suave);
-}
-
 .icono {
   flex-shrink: 0;
 }
