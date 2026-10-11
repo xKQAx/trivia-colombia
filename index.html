@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -459,8 +459,100 @@
       </div>
     </section>
 
-        <section id="pantalla-retroalimentacion" class="pantalla" hidden aria-labelledby="titulo-retroalimentacion">
-      <h2 id="titulo-retroalimentacion">Retroalimentación</h2>
+    <!-- Pantalla: Retroalimentación (Figma 3:402 / Móvil 6:122) — demo visual estática -->
+    <section id="pantalla-retroalimentacion" class="pantalla pantalla-juego pantalla-retro" hidden aria-labelledby="titulo-retroalimentacion">
+      <div class="partida">
+        <div class="partida__barra">
+          <div class="partida__meta">
+            <p class="partida__etiqueta">Pregunta</p>
+            <p class="partida__contador" id="titulo-retroalimentacion">3 / 10</p>
+          </div>
+
+          <div class="temporizador temporizador--agotado" aria-label="Tiempo restante">
+            <span class="temporizador__valor">12</span>
+          </div>
+
+          <div class="partida__stats">
+            <p class="partida__etiqueta">Puntaje</p>
+            <p class="partida__puntaje">250</p>
+            <p class="chip chip--racha">
+              <svg class="icono" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 3C10 7 13 8.5 13 11.5C13 13.5 11.5 15 10 15C13 18 16.5 16 17.5 12.5C19 8.5 16 5 12 3Z" fill="currentColor"/>
+              </svg>
+              Racha: 0
+            </p>
+          </div>
+        </div>
+
+        <div class="barra-progreso" aria-hidden="true">
+          <span class="barra-progreso__lleno" style="width: 30%"></span>
+        </div>
+
+        <article class="pregunta-bloque">
+          <p class="chip">Ciencia y Naturaleza · Fácil</p>
+          <h2 class="pregunta-bloque__enunciado">¿Cuál es el ave nacional de Colombia?</h2>
+        </article>
+
+        <div class="opciones opciones--reveladas" role="group" aria-label="Resultado de opciones">
+          <div class="opcion opcion--neutral" aria-disabled="true">
+            <span class="opcion__letra">A</span>
+            <span class="opcion__texto">Guacamaya</span>
+          </div>
+          <div class="opcion opcion--correcta" aria-disabled="true">
+            <span class="opcion__letra">B</span>
+            <span class="opcion__texto">Cóndor de los Andes</span>
+            <span class="opcion__marca" aria-hidden="true">
+              <svg class="icono" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12.5L10 17.5L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="opcion opcion--neutral" aria-disabled="true">
+            <span class="opcion__letra">C</span>
+            <span class="opcion__texto">Colibrí</span>
+          </div>
+          <div class="opcion opcion--incorrecta" aria-disabled="true">
+            <span class="opcion__letra">D</span>
+            <span class="opcion__texto">Tucán</span>
+            <span class="opcion__marca" aria-hidden="true">
+              <svg class="icono" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 7L17 17M17 7L7 17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <div class="retro-banner retro-banner--error" role="status">
+          <svg class="icono" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M7 7L17 17M17 7L7 17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <p class="retro-banner__titulo">Respuesta incorrecta</p>
+            <p class="retro-banner__detalle">+0 puntos · La racha se reinicia</p>
+          </div>
+        </div>
+
+        <aside class="explicacion">
+          <p class="explicacion__etiqueta">Explicación</p>
+          <p class="explicacion__texto">El cóndor de los Andes aparece en el escudo nacional.</p>
+        </aside>
+
+        <div class="retro-acciones">
+          <div class="comodines-acciones comodines-acciones--inactivos" aria-hidden="true">
+            <button type="button" class="boton boton--secundario boton--comodin" disabled>50/50 · −30 pts</button>
+            <button type="button" class="boton boton--secundario boton--comodin" disabled>
+              <svg class="icono" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M12 7.5V12.5L15 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              +10 s · −30 pts
+            </button>
+          </div>
+          <button type="button" class="boton boton--primario boton--auto" id="btn-siguiente" data-ir="resultado">
+            Siguiente pregunta
+          </button>
+        </div>
+      </div>
     </section>
 
     <section id="pantalla-resultado" class="pantalla" hidden aria-labelledby="titulo-resultado">
